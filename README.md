@@ -7,3 +7,4 @@ https://electronics.stackexchange.com/questions/139117/atmels-arm-programming-wi
 http://ww1.microchip.com/downloads/en/DeviceDoc/40001882A.pdf
 https://community.atmel.com/sites/default/files/forum_attachments/PIN-IO-SAMD21-SAMR21_RevA_0.pdf
 https://www.zippyrobotics.com/samd21-intro/
+http://asf.atmel.com/docs/latest/sam.drivers.usart.usart_synchronous_example.sam3u_ek/html/files.html
