@@ -1,6 +1,11 @@
 # washer
 Projeto de um sistema embarcado para lavadora de roupas. 
 
+## Documentação padrão
+http://asf.atmel.com/docs/latest/
+
+https://www.microchip.com/development-tools
+
 # Referências
 https://eewiki.net/display/microcontroller/Getting+Started+with+the+SAM+D21+Xplained+Pro+without+ASF
 https://electronics.stackexchange.com/questions/139117/atmels-arm-programming-without-asf
