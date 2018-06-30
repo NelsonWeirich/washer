@@ -8,9 +8,14 @@ DATA: 25/06/2018
 #include <asf.h>
 #include <stdio.h>
 #include <stdlib.h>
+// #include <conf_spinctrl.h>
+// #include <conf_sysfont.h>
 
 //BTNs e LEDs do OLED (conectado na parte de baixo).
 #include "pin_lib/btn_e_led.h"
+
+//Display OLED
+#include "display_lib/display_lib.h"
 
 //Usart
 #include "usart_lib/usart_lib.h"
@@ -205,29 +210,26 @@ int main(void)
 	//Inicializa
 	system_init();
 	
-	//Configura os btns e os leds.
-	init_OLED_btnLed();
+	struct gfx_mono_spinctrl_spincollection spinners;
+	
+	//Configura o display OLED.
+	init_OLED_display(&spinners);
+	int16_t tmp[5];
 	
 	while(1){
-		
-		if(isBTN_DOWN(bt1)){
-			LED_On(l1);
-		}else{
-			LED_Off(l1);
-		}
-		
-		if(isBTN_DOWN(bt2)){
-			LED_On(l3);
-		}else{
-			LED_Off(l3);			
-		}
-		
+			gfx_mono_spinctrl_spincollection_process_key(&spinners, GFX_MONO_SPINCTRL_KEYCODE_DOWN, tmp);
+			gfx_mono_spinctrl_spincollection_process_key(&spinners, GFX_MONO_SPINCTRL_KEYCODE_ENTER, tmp);
 	}
+	
+	//Configura os btns e os leds do OLED (parte de baixo da placa).
+	init_OLED_btnLed();
+	
+	//Configura os btns e os leds externos (lateral)
 
 	//Configura
 	configure_usart();
 	configure_usart_callbacks();
-
+	
 	//Ativa o intr do systema para pegar o usb.
 	system_interrupt_enable_global();
 	

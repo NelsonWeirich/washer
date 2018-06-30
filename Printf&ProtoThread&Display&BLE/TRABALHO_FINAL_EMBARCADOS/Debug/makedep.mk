@@ -6,6 +6,18 @@ src\adc_lib\adc_configure.c
 
 src\adc_lib\adc_temp.c
 
+src\ASF\common2\components\display\ssd1306\ssd1306.c
+
+src\ASF\common2\services\delay\sam0\systick_counter.c
+
+src\ASF\common2\services\gfx_mono\gfx_mono_ug_2832hsweg04.c
+
+src\ASF\sam0\drivers\sercom\spi\spi.c
+
+src\ASF\sam0\drivers\sercom\spi\spi_interrupt.c
+
+src\display_lib\display_lib.c
+
 src\pin_lib\bnt_e_led.c
 
 src\usart_lib\usar_lib.c
@@ -13,8 +25,6 @@ src\usart_lib\usar_lib.c
 src\ASF\common2\services\gfx_mono\gfx_mono_framebuffer.c
 
 src\ASF\common2\services\gfx_mono\gfx_mono_generic.c
-
-src\ASF\common2\services\gfx_mono\gfx_mono_null.c
 
 src\ASF\common2\services\gfx_mono\gfx_mono_spinctrl.c
 

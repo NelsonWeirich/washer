@@ -32,16 +32,18 @@ void inicializa_btn(void){
 //	port_pin_set_config(BUTTON_3_PIN, &config_port_pin);
 }
 
+
 //Inicializa os leds.
 void inicializa_led(void){
 	//Apaga a config.
-	port_get_config_defaults(&config_port_pin);	
+	port_get_config_defaults(&config_port_pin);
 	//Seta como saida.
 	config_port_pin.direction = PORT_PIN_DIR_OUTPUT;
 	//Seta os leds.
 	port_pin_set_config(LED_1_PIN, &config_port_pin);
-	//port_pin_set_config(LED_2_PIN, &config_port_pin);
+	LED_Off(LED_1_PIN);
 	port_pin_set_config(LED_3_PIN, &config_port_pin);
+	LED_Off(LED_3_PIN);
 }
 
 //Retorna 1 se o btn não esta precionado.

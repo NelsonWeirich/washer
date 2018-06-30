@@ -63,6 +63,9 @@
 #include <dma.h>
 #include <dma_crc.h>
 
+// From module: Delay routines
+#include <delay.h>
+
 // From module: GFX Monochrome - Monochrome Graphic Library
 #include <gfx_mono.h>
 
@@ -88,9 +91,16 @@
 #include <sercom.h>
 #include <sercom_interrupt.h>
 
+// From module: SERCOM SPI - Serial Peripheral Interface (Callback APIs)
+#include <spi.h>
+#include <spi_interrupt.h>
+
 // From module: SERCOM USART - Serial Communications (Callback APIs)
 #include <usart.h>
 #include <usart_interrupt.h>
+
+// From module: SSD1306 OLED controller
+#include <ssd1306.h>
 
 // From module: SYSTEM - Clock Management for SAMD21/R21/DA/HA
 #include <clock.h>
