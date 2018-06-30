@@ -16,7 +16,7 @@ void initSensor_NivelAgua(void){
 //Aqui dentro tem um if, ela só retorna os defines.
 int  valorAtualSensor(int Sensor){
 	//Lê do adc.
-	
+	static int count = 0;;
 	/*
 	
 	if(zero > valor_adc < valor_min ){
@@ -40,4 +40,12 @@ int  valorAtualSensor(int Sensor){
 	}
 	
 	*/
+	
+	if(count > 100000){
+		count = 0;
+	}else{
+		count++;
+	}
+	
+	return count;
 }
