@@ -107,23 +107,23 @@ void printExecutionSate(EXECUTANDO_t exec_state){
 	switch(exec_state){
 		
 		case FAZENDO_NADA:
-			concatString("    ", 70, 10);
+			concatString("        ", 70, 10);
 		break;
 		
 		case ENXER:
-			concatString("ENXER", 70, 10);
+			concatString("ENXER   ", 70, 10);
 		break;
 		
 		case BATER:
-			concatString("BATER", 70, 10);
+			concatString("BATER   ", 70, 10);
 		break;
 		
 		case MOLHO:
-			concatString("MOLHO", 70, 10);
+			concatString("MOLHO   ", 70, 10);
 		break;
 		
 		case ENXAGUAR:
-			concatString("ENXAGUE", 70, 10);
+			concatString("ENXAGUE ", 70, 10);
 		break;
 		
 		case ESVAZIAR:
@@ -131,11 +131,11 @@ void printExecutionSate(EXECUTANDO_t exec_state){
 		break;
 		
 		case CENTRIFUGAR:
-			concatString("CENTRIFUG", 70, 10);
+			concatString("CENTRFUG", 70, 10);
 		break;
 		
 		case SECANDO:
-			concatString("SECANDO", 70, 10);
+			concatString("SECANDO ", 70, 10);
 		break;
 	
 		default:
