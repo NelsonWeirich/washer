@@ -17,10 +17,22 @@
 #define LED_2_PIN              PIN_PA13	 //Não funciona.
 #define LED_3_PIN              PIN_PA15
 
+//Btns e LEDs externos. Tudos vai ligado em uma porta+ e no gnd-. Os btn ficam em pull-up na porta.
+#define BTN_TAMPA_PIN		  PIN_PB12 //Definir pino do btn de pressão. Se der tempo fazer uma interrupção para ele, se não der é só ler dele.
+#define LED_MOTOR_PIN		  PIN_PB13 //Definir o pino do led amarelo, indicando que é o motor.
+#define LED_SECADOR_PIN       PIN_PB13 //Definir pino do vermelho para o secador. 
+#define LED_VALVULA_PIN		  PIN_PB13 //Definir led transparente(azul) para ser a valvula (entrar agua).
+#define LED_BOMBA_PIN         PIN_PB13 //Definir led verde para ser a bomba (tira agua).
+
 //Inicializa todos os btns e os leds.
 void init_OLED_btnLed(void);
 void inicializa_btn(void);
 void inicializa_led(void);
+
+//Inicializa todos os btns e os leds exernos.
+void init_external_btnLed(void);
+void inicializa_exeternal_btn(void);
+void inicializa_external_led(void);
 
 int isBTN_UP(uint8_t btn);
 int isBTN_DOWN(uint8_t btn);
