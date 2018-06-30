@@ -37,17 +37,6 @@ typedef enum ESTADOS{
 
 ESTADO_t ESTADO = PEGANDO_DADOS;
 
-typedef enum subEstado{
-	ENXER,
-	ESVAZIAR,
-	BATER,
-	MOLHO,
-	ENXAGUAR,
-	CENTRIFUGAR,
-	SECANDO,
-	FAZENDO_NADA
-}EXECUTANDO_t;
-
 EXECUTANDO_t EXECUTION = FAZENDO_NADA;
 
 //Vars
@@ -95,11 +84,11 @@ struct timer { int start, interval; };
 //#define TIMEOUT 10
 
 //Tempo maximo do sistema. Subistituir pelo modulo timer. Tempo para enxer e esvaziar é infinito, dependem do sensor de nível de água.
-#define TIME_BATER       10000
-#define TIME_MOLHO       10000
-#define TIME_ENXAGUAR    10000
-#define TIME_CENTRIFUGAR 10000
-#define TIME_SECANDO     10000
+#define TIME_BATER       100000
+#define TIME_MOLHO       100000
+#define TIME_ENXAGUAR    100000
+#define TIME_CENTRIFUGAR 100000
+#define TIME_SECANDO     100000
 
 //Btn usados para controlar o menu.
 #define bt1 BUTTON_1_PIN
@@ -168,6 +157,7 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 			if(isBTN_DOWN(bt1)){
 				ESTADO = EXECUTANDO;
 				printString("EXECUTANDO:", 0, 10);
+				printExecutionSate(EXECUTION);
 				printString("PAUSAR         PARAR", 0, 25);
 			}else
 			
@@ -219,6 +209,14 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 			NIVEL_AGUA = (NIVEL_t) selecionado[OPT_AGUA];
 			SECAR      = (SECA_t ) selecionado[OPT_SECAR];
 			
+			//Ajusta o nivel, pois ele deve ser um valor.
+			switch( (spinner_agua_t) NIVEL_AGUA){
+				case  AGUA_OPT_BAIXO: NIVEL_AGUA = BAIXO; break;
+				case  AGUA_OPT_MEDIO: NIVEL_AGUA = MEDIO; break;
+				case  AGUA_OPT_ALTO : NIVEL_AGUA = ALTO; break;
+				default            : NIVEL_AGUA = SENSOR_NIVEL_FULL; break;
+			}
+			
 			//Pega o OK.
 			if(selecionado[OPT_OK] == OK_OPT_TRUE){
 				ESTADO = EXECUTANDO;
@@ -248,6 +246,7 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 		if(ESTADO == TAMPA_ABERTA && isBTN_DOWN(bt_tampa)){
 			ESTADO = EXECUTANDO;
 			printString("EXECUTANDO:", 0, 10);
+			printExecutionSate(EXECUTION);
 			printString("PAUSAR         PARAR", 0, 25);
 		}
 		
@@ -282,7 +281,7 @@ PT_THREAD(pt_contorlaExecution(struct pt *pt))
 				
 				case FAZENDO_NADA:
 					//Iniciou agora., logo zera o tempo e seta algo para executar.
-					time = 0; EXECUTION = ENXER; Prev_State = FAZENDO_NADA; concatString("ENXER", 70, 10);  //Usado para imprimir o subestado atual.
+					time = 0; EXECUTION = ENXER; Prev_State = FAZENDO_NADA; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 				break;
 				
 				case ENXER:
@@ -290,15 +289,15 @@ PT_THREAD(pt_contorlaExecution(struct pt *pt))
 					if(NIVEL_SENSOR >= NIVEL_AGUA){
 						//Verificar o que esta sendo feito antes.
 						if(Prev_State == FAZENDO_NADA){
-							EXECUTION = BATER; Prev_State = BATER; concatString("BATER", 70, 10);  //Usado para imprimir o subestado atual.
+							EXECUTION = BATER; Prev_State = BATER; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 						}else
 						
 						if(Prev_State == BATER){
-							EXECUTION = MOLHO; Prev_State = MOLHO; concatString("MOLHO", 70, 10);  //Usado para imprimir o subestado atual.
+							EXECUTION = MOLHO; Prev_State = MOLHO; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 						}else
 						
 						if(Prev_State == MOLHO){
-							EXECUTION = ENXAGUAR; Prev_State = ENXAGUAR; concatString("ENXAGUE", 70, 10);  //Usado para imprimir o subestado atual.
+							EXECUTION = ENXAGUAR; Prev_State = ENXAGUAR; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 						}
 						time = 0;  //Zera o timer.
 					}
@@ -313,7 +312,7 @@ PT_THREAD(pt_contorlaExecution(struct pt *pt))
 						}else
 						
 						if(Prev_State == ENXAGUAR){
-							EXECUTION = CENTRIFUGAR; Prev_State = FAZENDO_NADA; concatString("CENTRIFUG", 70, 10);  //Usado para imprimir o subestado atual.
+							EXECUTION = CENTRIFUGAR; Prev_State = FAZENDO_NADA;printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 						}
 						time = 0;  //Zera o timer.
 					}
@@ -322,35 +321,35 @@ PT_THREAD(pt_contorlaExecution(struct pt *pt))
 				case BATER:
 					//Só espera o tempo acabar.
 					if((time > TIME_BATER && MODO == RAPIDO) || (time > 2*TIME_BATER && MODO == NORMAL) || (time > 3*TIME_BATER && MODO == PESADO)){
-						EXECUTION = ESVAZIAR; concatString("ESVAZIAR", 70, 10);  //Usado para imprimir o subestado atual.
+						EXECUTION = ESVAZIAR; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 					}
 				break;
 				
 				case MOLHO:
 					//Só espera o tempo acabar.
 					if((time > TIME_MOLHO && MODO == RAPIDO) || (time > 2*TIME_MOLHO && MODO == NORMAL) || (time > 3*TIME_MOLHO && MODO == PESADO)){
-						EXECUTION = ESVAZIAR; concatString("ESVAZIAR", 70, 10);  //Usado para imprimir o subestado atual.
+						EXECUTION = ESVAZIAR; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 					}
 				break;
 				
 				case ENXAGUAR:
 					//Só espera o tempo acabar.
 					if((time > TIME_ENXAGUAR && MODO == RAPIDO) || (time > 2*TIME_ENXAGUAR && MODO == NORMAL) || (time > 3*TIME_ENXAGUAR && MODO == PESADO)){
-						EXECUTION = ESVAZIAR; concatString("ESVAZIAR", 70, 10);  //Usado para imprimir o subestado atual.
+						EXECUTION = ESVAZIAR; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 					}
 				break;
 				
 				case CENTRIFUGAR:
 					//Só espera o tempo acabar.
 					if((time > TIME_CENTRIFUGAR && MODO == RAPIDO) || (time > 2*TIME_CENTRIFUGAR && MODO == NORMAL) || (time > 3*TIME_CENTRIFUGAR && MODO == PESADO)){
-						EXECUTION = SECANDO; concatString("SECANDO", 70, 10);  //Usado para imprimir o subestado atual.
+						EXECUTION = SECANDO; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 					}
 				break;
 				
 				case SECANDO:
 					//Só espera o tempo acabar.
 					if((time > TIME_SECANDO && SECAR == MORNO) || (time > 2*TIME_SECANDO && SECAR == QUENTE) || (time > 3*TIME_SECANDO && SECAR == VAPOR)){
-						EXECUTION = FAZENDO_NADA; ESTADO = FINALIZADO; 			printString("---FINALIZADO---", 10, 10); printString("------         PARAR", 0, 25);
+						EXECUTION = FAZENDO_NADA; ESTADO = FINALIZADO; 	printString("---FINALIZADO---", 10, 10); printString("------         PARAR", 0, 25);
 					}
 				break;
 				
