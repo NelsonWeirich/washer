@@ -1,6 +1,6 @@
 /*
 NOMES: Eduardo Capellari Culau
-       Nelson Weirich Junior 
+       Nelson Weirich Junior
 
 DATA: 25/06/2018
 */
@@ -65,7 +65,7 @@ typedef enum SECAR_EXECUTAR{
 
 SECA_t SECAR = MORNO;
 
-//Usado para pegar fazer o menu e pegar as opções selecionadas.
+//Usado para pegar fazer o menu e pegar as opï¿½ï¿½es selecionadas.
 struct gfx_mono_spinctrl_spincollection spinners;
 int16_t selecionado[4];
 
@@ -83,7 +83,7 @@ struct timer { int start, interval; };
 //Tempo de espera da protothread
 //#define TIMEOUT 10
 
-//Tempo maximo do sistema. Subistituir pelo modulo timer. Tempo para enxer e esvaziar é infinito, dependem do sensor de nível de água.
+//Tempo maximo do sistema. Subistituir pelo modulo timer. Tempo para enxer e esvaziar ï¿½ infinito, dependem do sensor de nï¿½vel de ï¿½gua.
 #define TIME_BATER       70000
 #define TIME_MOLHO       70000
 #define TIME_ENXAGUAR    70000
@@ -100,12 +100,12 @@ struct timer { int start, interval; };
 #define l_motor   LED_MOTOR_PIN
 #define l_secador LED_SECADOR_PIN
 #define l_valvula LED_VALVULA_PIN
-#define l_bomba   LED_BOMBA_PIN 
+#define l_bomba   LED_BOMBA_PIN
 
 //Sensor nivel adc.
 #define POTENTIOMETER SENSOR_NIVEL_PIN
 
-//LED usado para indicar se tá executando e se (COLOCAR OUTRA COISA); Só esta sendo usado para testes.
+//LED usado para indicar se tï¿½ executando e se (COLOCAR OUTRA COISA); Sï¿½ esta sendo usado para testes.
 #define l1  LED_1_PIN
 #define l3  LED_3_PIN
 
@@ -115,11 +115,11 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 	static uint8_t OK_pressed;
 	//Inicia a protothread.
 	PT_BEGIN(pt);
-	
+
 	//Espera algo.
 	PT_WAIT_UNTIL(pt, isBTN_DOWN(bt1) || isBTN_DOWN(bt2));
-	
-		//Se tá no estado de espera, a pessoa pode escolher as opçoes.
+
+		//Se tï¿½ no estado de espera, a pessoa pode escolher as opï¿½oes.
 		if(ESTADO == PEGANDO_DADOS){
 			//Proximo
 			if(isBTN_DOWN(bt1)){
@@ -134,9 +134,9 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 				selecionado[OPT_OK] = OK_OPT_TRUE; OK_pressed = !GFX_MONO_SPINCTRL_EVENT_FINISH;
 				clearDisplay(); printString("EXECUTANDO:", 0, 10); printString("PAUSAR         PARAR", 0, 25);
 			}
-			
+
 		}else
-		
+
 		//Quando tiver executnado.
 		if(ESTADO == EXECUTANDO){
 			//Pausar
@@ -151,7 +151,7 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 				clearDisplay(); mostraMenuDisplay(&spinners);
 			}
 		}else
-		
+
 		if(ESTADO == ESPERA){
 			//Pausar
 			if(isBTN_DOWN(bt1)){
@@ -160,14 +160,14 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 				printExecutionSate(EXECUTION);
 				printString("PAUSAR         PARAR", 0, 25);
 			}else
-			
+
 			//Parar
 			if(isBTN_DOWN(bt2)){
 				ESTADO = PEGANDO_DADOS;
 				clearDisplay(); mostraMenuDisplay(&spinners);
 			}
 		}else
-		
+
 		if(ESTADO == TAMPA_ABERTA){
 			//Parar
 			if(isBTN_DOWN(bt2)){
@@ -175,7 +175,7 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 				clearDisplay(); mostraMenuDisplay(&spinners);
 			}
 		}
-		
+
 		if(ESTADO == FINALIZADO){
 			//Parar
 			if(isBTN_DOWN(bt2)){
@@ -183,13 +183,13 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 				clearDisplay(); mostraMenuDisplay(&spinners);
 			}
 		}
-		
-		//Espera para não pegar muitos cliques de uma vez só.
+
+		//Espera para nï¿½o pegar muitos cliques de uma vez sï¿½.
 		delay_ms(500);
-	
+
 	//Rerorna para da protothread.
 	PT_YIELD(pt);
-	
+
 	//Fim da protothread.
 	PT_END(pt);
 }
@@ -199,16 +199,16 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 {
 	//Inicia a protothread.
 	PT_BEGIN(pt);
-	
+
 	//Sempre pegar os dados e os processas.
 	while(1){
-		
+
 		if(ESTADO == PEGANDO_DADOS){
-			//Pega as opções do display.
+			//Pega as opï¿½ï¿½es do display.
 			MODO       = (MODE_t ) selecionado[OPT_MODO];
 			NIVEL_AGUA = (NIVEL_t) selecionado[OPT_AGUA];
 			SECAR      = (SECA_t ) selecionado[OPT_SECAR];
-			
+
 			//Ajusta o nivel, pois ele deve ser um valor.
 			switch( (spinner_agua_t) NIVEL_AGUA){
 				case  AGUA_OPT_BAIXO: NIVEL_AGUA = BAIXO; break;
@@ -216,43 +216,43 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 				case  AGUA_OPT_ALTO : NIVEL_AGUA = ALTO; break;
 				default            : NIVEL_AGUA = SENSOR_NIVEL_FULL; break;
 			}
-			
+
 			//Pega o OK.
 			if(selecionado[OPT_OK] == OK_OPT_TRUE){
 				ESTADO = EXECUTANDO;
 				selecionado[OPT_OK] = OK_OPT_FALSE;
-			}	
+			}
 		}
-		
-		//Testes, dá pra tirar isso.
+
+		//Testes, dï¿½ pra tirar isso.
 		if(MODO == PESADO){
 			LED_On(l1);
 		}else{
 			LED_Off(l1);
 		}
 		if(ESTADO == EXECUTANDO){
-			LED_On(l3); 
+			LED_On(l3);
 		}else{
-			LED_Off(l3);	
+			LED_Off(l3);
 		}
-		
-		//Pegar se a tampa está aberta. //TODO : Tirar o negado para funcionar corretamente, pegando o valor do btn conectado da placa.
+
+		//Pegar se a tampa estï¿½ aberta. //TODO : Tirar o negado para funcionar corretamente, pegando o valor do btn conectado da placa.
 		if(ESTADO == EXECUTANDO && !isBTN_UP(bt_tampa) ){
 			ESTADO = TAMPA_ABERTA;
 			printString("---TAMPA ABERTA---", 10, 10);
 			printString("------         PARAR", 0, 25);
 		}
-		
+
 		if(ESTADO == TAMPA_ABERTA && isBTN_DOWN(bt_tampa)){
 			ESTADO = EXECUTANDO;
 			printString("EXECUTANDO:", 0, 10);
 			printExecutionSate(EXECUTION);
 			printString("PAUSAR         PARAR", 0, 25);
 		}
-		
+
 		//Pega o nivel de agua do ADC.
-		NIVEL_SENSOR = valorAtualSensor(POTENTIOMETER); 
-		
+		NIVEL_SENSOR = valorAtualSensor(POTENTIOMETER);
+
 		//Rerorna para da protothread.
 		PT_YIELD(pt);
 	}
@@ -260,111 +260,111 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 	PT_END(pt);
 }
 
-//Controla a execução do sistema. Exemplo. Agora tem que enxer, agora bater, agroa centrifugar.
+//Controla a execuï¿½ï¿½o do sistema. Exemplo. Agora tem que enxer, agora bater, agroa centrifugar.
 PT_THREAD(pt_contorlaExecution(struct pt *pt))
 {
 	static int time;
 	static EXECUTANDO_t Prev_State = PEGANDO_DADOS;
-	
+
 	//Inicia a protothread.
 	PT_BEGIN(pt);
-	
+
 	//Sempre pegar os dados e os processas.
 	while(1){
-		//Modo de execuçãão.
+		//Modo de execuï¿½ï¿½ï¿½o.
 		//Enxe->Bate->Esvazia->Enxe->Molho->Esvazia->Enxee->Encagua->Esvazia->Centrifufa->Seca.
-		
-		//Se tiver executando faz algo, senão  não tem execução para controlar.
+
+		//Se tiver executando faz algo, senï¿½o  nï¿½o tem execuï¿½ï¿½o para controlar.
 		if(ESTADO == EXECUTANDO){
 			//Controla os subestados. Vai de subestado em subestado.
 			switch(EXECUTION){
-				
+
 				case FAZENDO_NADA:
 					//Iniciou agora., logo zera o tempo e seta algo para executar.
 					time = 0; EXECUTION = ENXER; Prev_State = FAZENDO_NADA; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 				break;
-				
+
 				case ENXER:
-					//Espera até a agua chegar no valor do nivel selecionado. //Se tiver enxendo, temos de saber se enxeu para bater ou para enxaguar ou sei lá pq.
+					//Espera atï¿½ a agua chegar no valor do nivel selecionado. //Se tiver enxendo, temos de saber se enxeu para bater ou para enxaguar ou sei lï¿½ pq.
 					if(NIVEL_SENSOR >= NIVEL_AGUA){
 						//Verificar o que esta sendo feito antes.
 						if(Prev_State == FAZENDO_NADA){
 							EXECUTION = BATER; Prev_State = BATER; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 						}else
-						
+
 						if(Prev_State == BATER){
 							EXECUTION = MOLHO; Prev_State = MOLHO; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 						}else
-						
+
 						if(Prev_State == MOLHO){
 							EXECUTION = ENXAGUAR; Prev_State = ENXAGUAR; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 						}
 						time = 0;  //Zera o timer.
 					}
 				break;
-				
+
 				case ESVAZIAR:
-					//Espera até esvaziar.
+					//Espera atï¿½ esvaziar.
 					if(NIVEL_SENSOR <= SENSOR_NIVEL_ZERO){
 						//Verificar o que esta sendo feito antes.
 						if(Prev_State == BATER || Prev_State == MOLHO){
 							EXECUTION = ENXER; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 						}else
-						
+
 						if(Prev_State == ENXAGUAR){
 							EXECUTION = CENTRIFUGAR; Prev_State = FAZENDO_NADA;printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 						}
 						time = 0;  //Zera o timer.
 					}
 				break;
-				
+
 				case BATER:
-					//Só espera o tempo acabar.
+					//Sï¿½ espera o tempo acabar.
 					if((time > TIME_BATER && MODO == RAPIDO) || (time > 2*TIME_BATER && MODO == NORMAL) || (time > 3*TIME_BATER && MODO == PESADO)){
 						EXECUTION = ESVAZIAR; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 					}
 				break;
-				
+
 				case MOLHO:
-					//Só espera o tempo acabar.
+					//Sï¿½ espera o tempo acabar.
 					if((time > TIME_MOLHO && MODO == RAPIDO) || (time > 2*TIME_MOLHO && MODO == NORMAL) || (time > 3*TIME_MOLHO && MODO == PESADO)){
 						EXECUTION = ESVAZIAR; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 					}
 				break;
-				
+
 				case ENXAGUAR:
-					//Só espera o tempo acabar.
+					//Sï¿½ espera o tempo acabar.
 					if((time > TIME_ENXAGUAR && MODO == RAPIDO) || (time > 2*TIME_ENXAGUAR && MODO == NORMAL) || (time > 3*TIME_ENXAGUAR && MODO == PESADO)){
 						EXECUTION = ESVAZIAR; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 					}
 				break;
-				
+
 				case CENTRIFUGAR:
-					//Só espera o tempo acabar.
+					//Sï¿½ espera o tempo acabar.
 					if((time > TIME_CENTRIFUGAR && MODO == RAPIDO) || (time > 2*TIME_CENTRIFUGAR && MODO == NORMAL) || (time > 3*TIME_CENTRIFUGAR && MODO == PESADO)){
 						EXECUTION = SECANDO; time = 0; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 					}
 				break;
-				
+
 				case SECANDO:
-					//Só espera o tempo acabar.
+					//Sï¿½ espera o tempo acabar.
 					if((time > TIME_SECANDO && SECAR == MORNO) || (time > 2*TIME_SECANDO && SECAR == QUENTE) || (time > 3*TIME_SECANDO && SECAR == VAPOR)){
 						EXECUTION = FAZENDO_NADA; ESTADO = FINALIZADO; 	printString("---FINALIZADO---", 10, 10); printString("------         PARAR", 0, 25);
 					}
 				break;
-				
+
 				default:
 					concatString("ERRO", 70, 10);  //Usado para imprimir o subestado atual.
 				break;
 			}
-			
-			//Independente do estado o tempo, sempre avança.
-			//Time do sistema. Se der tempo subistituir pelo TIMER do uC (usando o modulo do timer). Não usar as functions de delay pq elas travam o uC.
+
+			//Independente do estado o tempo, sempre avanï¿½a.
+			//Time do sistema. Se der tempo subistituir pelo TIMER do uC (usando o modulo do timer). Nï¿½o usar as functions de delay pq elas travam o uC.
 			time++;
-			
+
 		}else
-		
-		//Se o estado estiver parado, tem que resetar a execução.
+
+		//Se o estado estiver parado, tem que resetar a execuï¿½ï¿½o.
 		if(ESTADO == PEGANDO_DADOS){
 			EXECUTION = FAZENDO_NADA;
 		}
@@ -380,44 +380,44 @@ PT_THREAD(pt_controlaComponentes(struct pt *pt))
 {
 	//Inicia a protothread.
 	PT_BEGIN(pt);
-	
+
 	while(1){
 		//***MOTOR***
-		//Estado é executnado, logo verifica se é para o motor executar.
+		//Estado ï¿½ executnado, logo verifica se ï¿½ para o motor executar.
 		if(ESTADO == EXECUTANDO && ( EXECUTION == BATER || EXECUTION == CENTRIFUGAR || EXECUTION == SECANDO )){
 			LED_On(l_motor);
 		}else{
 			LED_Off(l_motor);
 		}
-		
+
 		//***VALVULA***
-		//Estado é executnado, logo verifica se é para colocar agua.
+		//Estado ï¿½ executnado, logo verifica se ï¿½ para colocar agua.
 		if(ESTADO == EXECUTANDO && ( EXECUTION == ENXER || (EXECUTION == SECANDO && SECAR == VAPOR)) ){
 			LED_On(l_bomba);
 		}else{
 			LED_Off(l_bomba);
 		}
-		
+
 		//***BOMBA***
-		//Estado é executnado, logo verifica se é para o bomba retirar agua.
+		//Estado ï¿½ executnado, logo verifica se ï¿½ para o bomba retirar agua.
 		if(ESTADO == EXECUTANDO && ( EXECUTION == CENTRIFUGAR || EXECUTION == ESVAZIAR)){
 			LED_On(l_bomba);
 		}else{
 			LED_Off(l_bomba);
 		}
-		
+
 		//***SECAR***
-		//Estado é executnado, liga quando tiver que secar.
+		//Estado ï¿½ executnado, liga quando tiver que secar.
 		if(ESTADO == EXECUTANDO && ( EXECUTION == SECANDO) ){
 			LED_On(l_secador);
 		}else{
 			LED_Off(l_secador);
 		}
-		
+
 		//Rerorna para da protothread.
 		PT_YIELD(pt);
 	}
-	
+
 	//Fim da protothread.
 	PT_END(pt);
 }
@@ -426,35 +426,35 @@ int main(void)
 {
 	//Inicializa
 	system_init();
-	
+
 	//Configura o display OLED.
 	init_OLED_display(&spinners);
-	
+
 	//Configura os btns e os leds do OLED (parte de baixo da placa).
 	init_OLED_btnLed();
-	
+
 	//Configura os btns e os leds externos (lateral)
 	init_external_btnLed();
-	
+
 	//Configura o ADC.
 	initSensor_NivelAgua();
 
 	//Configura
 	configure_usart();
 	configure_usart_callbacks();
-	
+
 	//Ativa o intr do systema para pegar o usb.
 	system_interrupt_enable_global();
-	
+
 	//Gasta tempo e Inicial. Tempo para abrir o terminal e poder ver desde o inicio.
 	for(int wt = 0; wt<1000000;wt++){}
-	printf("START....................\n\n");		
-	
+	printf("START....................\n\n");
+
 	//Cria a pThread. E Inicializa.
     struct pt pt_gD, pt_pD, pt_cC, pt_cE;
 	PT_INIT(&pt_gD); PT_INIT(&pt_pD); PT_INIT(&pt_cC); PT_INIT(&pt_cE);
-	
-	
+
+
 	//Fica executado para sempre as protoThreads.
 	while(1){
 		//Fica trocando entre as protothreads.
@@ -463,9 +463,9 @@ int main(void)
 		pt_controlaComponentes(&pt_cC);
 		pt_contorlaExecution(&pt_cE);
 	}
-	
+
 }
 
-//TODO : Iniciar relatório que deve ser enviado.
-//TODO : Confirmar os envios no gitHub.
-//TODO : Se der tempo fazer o doxigen, senão nem faz (pq só vale 10% da nota).
+//CHANGED : Iniciar relatï¿½rio que deve ser enviado.
+//CHANGED : Confirmar os envios no gitHub.
+//TODO : Se der tempo fazer o doxigen, senï¿½o nem faz (pq sï¿½ vale 10% da nota).
