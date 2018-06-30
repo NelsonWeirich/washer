@@ -76,3 +76,23 @@ void init_OLED_display(struct gfx_mono_spinctrl_spincollection *spinners){
 	gfx_mono_spinctrl_spincollection_show(spinners);
 	
 }
+
+void mostraMenuDisplay (struct gfx_mono_spinctrl_spincollection *spinners){
+	// Show spincollection on screen
+	gfx_mono_spinctrl_spincollection_show(spinners);
+}
+
+//Inicia ele denovo, logo apaga tudo o que tinha antes.
+void clearDisplay (void){
+		gfx_mono_init();
+}
+
+//Limpa uma linha, para assim poder escrer algo novo.
+void clearLine (gfx_coord_t Y){
+	gfx_mono_draw_string("                      ", 0, Y, &sysfont);
+}
+
+void printString (const char* string, gfx_coord_t X, gfx_coord_t Y){
+    clearLine(Y);
+	gfx_mono_draw_string(string, X, Y, &sysfont);
+}

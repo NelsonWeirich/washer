@@ -51,28 +51,25 @@ typedef enum NIVEL__da_AGUA{
 	BAIXO = 0,
 	MEDIO,
 	ALTO,
-	NIVEL_NADA
 } NIVEL_t;
 
-NIVEL_t NIVEL_AGUA = NIVEL_NADA;
+NIVEL_t NIVEL_AGUA = ALTO;
 
 typedef enum MODO_EXECUTAR{
 	NORMAL = 0,
 	RAPIDO,
 	PESADO,
-	MODO_NADA
 } MODE_t;
 
-MODE_t MODO = MODO_NADA;
+MODE_t MODO = NORMAL;
 
 typedef enum SECAR_EXECUTAR{
 	MORNO = 0,
 	QUENTE,
 	VAPOR,
-	SECAR_NADA
 } SECA_t;
 
-SECA_t SECAR = SECAR_NADA;
+SECA_t SECAR = MORNO;
 
 //Usado para pegar fazer o menu e pegar as opções selecionadas.
 struct gfx_mono_spinctrl_spincollection spinners;
@@ -176,7 +173,6 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 	
 		//Se tá no estado de espera, a pessoa pode escolher as opçoes.
 		if(ESTADO == PEGANDO_DADOS){
-			
 			//Proximo
 			if(isBTN_DOWN(bt1)){
 				gfx_mono_spinctrl_spincollection_process_key(&spinners, GFX_MONO_SPINCTRL_KEYCODE_DOWN, selecionado);
@@ -185,18 +181,46 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 			if(isBTN_DOWN(bt2)){
 				OK_pressed = gfx_mono_spinctrl_spincollection_process_key(&spinners, GFX_MONO_SPINCTRL_KEYCODE_ENTER, selecionado);
 			}
-			
 			//Pegar quando foi celecionadao o OK (clicando enter com o spinner no OK.)
 			if(OK_pressed == GFX_MONO_SPINCTRL_EVENT_FINISH){
-				selecionado[OPT_OK] = OK_OPT_TRUE;
-				OK_pressed = !GFX_MONO_SPINCTRL_EVENT_FINISH;
-			}else{
-				selecionado[OPT_OK] = OK_OPT_FALSE;
+				selecionado[OPT_OK] = OK_OPT_TRUE; OK_pressed = !GFX_MONO_SPINCTRL_EVENT_FINISH;
+				clearDisplay(); printString("EXECUTANDO:", 0, 10); printString("PAUSAR         PARAR", 0, 25);
 			}
 			
-			//Espera para não pegar muitos cliques de uma vez só.
-			delay_ms(500);	
+		}else
+		
+		//Quando tiver executnado.
+		if(ESTADO == EXECUTANDO){
+			//Pausar
+			if(isBTN_DOWN(bt1)){
+				ESTADO = ESPERA;
+				printString("---PAUSADO---", 20, 10);
+				printString("CONTINUAR      PARAR", 0, 25);
+			}
+			//Parar
+			if(isBTN_DOWN(bt2)){
+				ESTADO = PEGANDO_DADOS;
+				clearDisplay(); mostraMenuDisplay(&spinners);
+			}
+		}else
+		
+		if(ESTADO == ESPERA){
+			//Pausar
+			if(isBTN_DOWN(bt1)){
+				ESTADO = EXECUTANDO;
+				printString("EXECUTANDO:", 0, 10);
+				printString("PAUSAR         PARAR", 0, 25);
+			}
+			
+			//Parar
+			if(isBTN_DOWN(bt2)){
+				ESTADO = PEGANDO_DADOS;
+				clearDisplay(); mostraMenuDisplay(&spinners);
+			}
 		}
+		
+		//Espera para não pegar muitos cliques de uma vez só.
+		delay_ms(500);
 	
 	//Rerorna para da protothread.
 	PT_YIELD(pt);
@@ -208,7 +232,7 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 //Pega os dados que a pessoa digitou no display.
 PT_THREAD(pt_pegaDados(struct pt *pt))
 {
-	
+	static int alreadyPrint;
 	//Inicia a protothread.
 	PT_BEGIN(pt);
 	
@@ -224,6 +248,7 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 			//Pega o OK.
 			if(selecionado[OPT_OK] == OK_OPT_TRUE){
 				ESTADO = EXECUTANDO;
+				selecionado[OPT_OK] = OK_OPT_FALSE;
 			}	
 		}
 		
@@ -235,7 +260,7 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 			LED_Off(l1);
 		}
 		if(ESTADO == EXECUTANDO){
-			LED_On(l3);
+			LED_On(l3); 
 		}else{
 			LED_Off(l3);	
 		}

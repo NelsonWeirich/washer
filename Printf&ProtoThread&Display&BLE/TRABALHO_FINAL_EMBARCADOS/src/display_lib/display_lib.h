@@ -22,6 +22,10 @@ enum spinner_ok_suboptions{OK_OPT_FALSE = 0, OK_OPT_TRUE};
 
 //Functions.
 void init_OLED_display(struct gfx_mono_spinctrl_spincollection *spinners);
+void mostraMenuDisplay (struct gfx_mono_spinctrl_spincollection *spinners);
+void clearDisplay (void);
+void clearLine (gfx_coord_t Y);
+void printString (const char* string, gfx_coord_t X, gfx_coord_t Y);
 
 
 #endif /* INCFILE1_H_ */
