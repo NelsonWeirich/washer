@@ -98,6 +98,48 @@ void printString (const char* string, gfx_coord_t X, gfx_coord_t Y){
 }
 
 void concatString (const char* string, gfx_coord_t X, gfx_coord_t Y){
-	clearLine(Y, X);
+	//clearLine(Y, X);
 	gfx_mono_draw_string(string, X, Y, &sysfont);
+}
+
+void printExecutionSate(EXECUTANDO_t exec_state){
+	//Controla os subestados. Vai de subestado em subestado.
+	switch(exec_state){
+		
+		case FAZENDO_NADA:
+			concatString("    ", 70, 10);
+		break;
+		
+		case ENXER:
+			concatString("ENXER", 70, 10);
+		break;
+		
+		case BATER:
+			concatString("BATER", 70, 10);
+		break;
+		
+		case MOLHO:
+			concatString("MOLHO", 70, 10);
+		break;
+		
+		case ENXAGUAR:
+			concatString("ENXAGUE", 70, 10);
+		break;
+		
+		case ESVAZIAR:
+			concatString("ESVAZIAR", 70, 10);
+		break;
+		
+		case CENTRIFUGAR:
+			concatString("CENTRIFUG", 70, 10);
+		break;
+		
+		case SECANDO:
+			concatString("SECANDO", 70, 10);
+		break;
+	
+		default:
+		concatString("ERRO", 70, 10);  //Usado para imprimir o subestado atual.
+		break;
+	}
 }
