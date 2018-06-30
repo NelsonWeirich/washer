@@ -236,8 +236,8 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 			LED_Off(l3);	
 		}
 		
-		//Pegar se a tampa está aberta.
-		if(ESTADO == EXECUTANDO && isBTN_UP(bt_tampa) ){
+		//Pegar se a tampa está aberta. //TODO : Tirar o negado para funcionar corretamente, pegando o valor do btn conectado da placa.
+		if(ESTADO == EXECUTANDO && !isBTN_UP(bt_tampa) ){
 			ESTADO = TAMPA_ABERTA;
 			printString("---TAMPA ABERTA---", 10, 10);
 			printString("------         PARAR", 0, 25);
@@ -466,3 +466,6 @@ int main(void)
 	
 }
 
+//TODO : Iniciar relatório que deve ser enviado.
+//TODO : Confirmar os envios no gitHub.
+//TODO : Se der tempo fazer o doxigen, senão nem faz (pq só vale 10% da nota).

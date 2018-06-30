@@ -17,6 +17,7 @@
 #define LED_2_PIN              PIN_PA13	 //Não funciona.
 #define LED_3_PIN              PIN_PA15
 
+//TODO :Definir os pinos corretos dos btns e dos led conectados na placa. Definir os pinos deles.
 //Btns e LEDs externos. Tudos vai ligado em uma porta+ e no gnd-. Os btn ficam em pull-up na porta.
 #define BTN_TAMPA_PIN		  PIN_PB12 //Definir pino do btn de pressão. Se der tempo fazer uma interrupção para ele, se não der é só ler dele.
 #define LED_MOTOR_PIN		  PIN_PB13 //Definir o pino do led amarelo, indicando que é o motor.

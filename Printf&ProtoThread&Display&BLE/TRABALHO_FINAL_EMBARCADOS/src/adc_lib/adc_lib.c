@@ -8,12 +8,12 @@
 //Incluir a lib
 #include "adc_lib.h"
 
-//Inicializar tudo, mede e tals.
+//Inicializar tudo, mede e tals. //TODO
 void initSensor_NivelAgua(void){
 	
 }
 
-//Aqui dentro tem um if, ela só retorna os defines.
+//Aqui dentro tem um if, ela só retorna os defines. //TODO
 int  valorAtualSensor(int Sensor){
 	//Lê do adc.
 	static int count = 0, count2 = 0;
