@@ -84,11 +84,11 @@ struct timer { int start, interval; };
 //#define TIMEOUT 10
 
 //Tempo maximo do sistema. Subistituir pelo modulo timer. Tempo para enxer e esvaziar é infinito, dependem do sensor de nível de água.
-#define TIME_BATER       100000
-#define TIME_MOLHO       100000
-#define TIME_ENXAGUAR    100000
-#define TIME_CENTRIFUGAR 100000
-#define TIME_SECANDO     100000
+#define TIME_BATER       70000
+#define TIME_MOLHO       70000
+#define TIME_ENXAGUAR    70000
+#define TIME_CENTRIFUGAR 70000
+#define TIME_SECANDO     70000
 
 //Btn usados para controlar o menu.
 #define bt1 BUTTON_1_PIN
@@ -308,7 +308,7 @@ PT_THREAD(pt_contorlaExecution(struct pt *pt))
 					if(NIVEL_SENSOR <= SENSOR_NIVEL_ZERO){
 						//Verificar o que esta sendo feito antes.
 						if(Prev_State == BATER || Prev_State == MOLHO){
-							EXECUTION = ENXER; concatString("ENXER", 70, 10);  //Usado para imprimir o subestado atual.
+							EXECUTION = ENXER; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 						}else
 						
 						if(Prev_State == ENXAGUAR){
@@ -342,7 +342,7 @@ PT_THREAD(pt_contorlaExecution(struct pt *pt))
 				case CENTRIFUGAR:
 					//Só espera o tempo acabar.
 					if((time > TIME_CENTRIFUGAR && MODO == RAPIDO) || (time > 2*TIME_CENTRIFUGAR && MODO == NORMAL) || (time > 3*TIME_CENTRIFUGAR && MODO == PESADO)){
-						EXECUTION = SECANDO; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
+						EXECUTION = SECANDO; time = 0; printExecutionSate(EXECUTION);  //Usado para imprimir o subestado atual.
 					}
 				break;
 				
