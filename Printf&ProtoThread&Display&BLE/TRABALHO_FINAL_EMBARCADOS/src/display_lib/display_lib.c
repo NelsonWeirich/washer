@@ -88,11 +88,16 @@ void clearDisplay (void){
 }
 
 //Limpa uma linha, para assim poder escrer algo novo.
-void clearLine (gfx_coord_t Y){
-	gfx_mono_draw_string("                      ", 0, Y, &sysfont);
+void clearLine (gfx_coord_t Y, gfx_coord_t X){
+	gfx_mono_draw_string("                      ", X, Y, &sysfont);
 }
 
 void printString (const char* string, gfx_coord_t X, gfx_coord_t Y){
-    clearLine(Y);
+    clearLine(Y, 0);
+	gfx_mono_draw_string(string, X, Y, &sysfont);
+}
+
+void concatString (const char* string, gfx_coord_t X, gfx_coord_t Y){
+	clearLine(Y, X);
 	gfx_mono_draw_string(string, X, Y, &sysfont);
 }
