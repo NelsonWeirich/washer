@@ -96,7 +96,7 @@ Disassembly of section .text:
 00000114 <initSensor_NivelAgua>:
 #include "adc_lib.h"
 
-//Inicializar tudo, mede e tals.
+//Inicializar tudo, mede e tals. //TODO
 void initSensor_NivelAgua(void){
 	
 }
@@ -9506,12 +9506,12 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
     302a:	0212      	lsls	r2, r2, #8
     302c:	4b1b      	ldr	r3, [pc, #108]	; (309c <pt_pegaDados+0x130>)
     302e:	615a      	str	r2, [r3, #20]
-		if(ESTADO == EXECUTANDO && isBTN_UP(bt_tampa) ){
+		if(ESTADO == EXECUTANDO && !isBTN_UP(bt_tampa) ){
     3030:	202c      	movs	r0, #44	; 0x2c
     3032:	4b1f      	ldr	r3, [pc, #124]	; (30b0 <pt_pegaDados+0x144>)
     3034:	4798      	blx	r3
     3036:	2800      	cmp	r0, #0
-    3038:	d0d4      	beq.n	2fe4 <pt_pegaDados+0x78>
+    3038:	d1d4      	bne.n	2fe4 <pt_pegaDados+0x78>
 			ESTADO = TAMPA_ABERTA;
     303a:	2202      	movs	r2, #2
     303c:	4b12      	ldr	r3, [pc, #72]	; (3088 <pt_pegaDados+0x11c>)
@@ -12724,7 +12724,7 @@ int main(void)
     4934:	6964654d 0000006f                       Medio...
 
 0000493c <spinCHC_modo_normal>:
-    493c:	6e726f4e 00006c61                       Nornal..
+    493c:	6d726f4e 00006c61                       Normal..
 
 00004944 <spinCHC_modo_pesado>:
     4944:	61736550 00006f64                       Pesado..
