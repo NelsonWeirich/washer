@@ -31,7 +31,8 @@ typedef enum ESTADOS{
 	PEGANDO_DADOS = 0,
 	EXECUTANDO,
 	TAMPA_ABERTA,
-	ESPERA
+	ESPERA,
+	FINALIZADO
 } ESTADO_t;
 
 ESTADO_t ESTADO = PEGANDO_DADOS;
@@ -93,6 +94,13 @@ struct timer { int start, interval; };
 //Tempo de espera da protothread
 //#define TIMEOUT 10
 
+//Tempo maximo do sistema. Subistituir pelo modulo timer. Tempo para enxer e esvaziar é infinito, dependem do sensor de nível de água.
+#define TIME_BATER       10000
+#define TIME_MOLHO       10000
+#define TIME_ENXAGUAR    10000
+#define TIME_CENTRIFUGAR 10000
+#define TIME_SECANDO     10000
+
 //Btn usados para controlar o menu.
 #define bt1 BUTTON_1_PIN
 #define bt2 BUTTON_2_PIN
@@ -103,7 +111,10 @@ struct timer { int start, interval; };
 #define l_motor   LED_MOTOR_PIN
 #define l_secador LED_SECADOR_PIN
 #define l_valvula LED_VALVULA_PIN
-#define l_bomba   LED_BOMBA_PIN   
+#define l_bomba   LED_BOMBA_PIN 
+
+//Sensor nivel adc.
+#define POTENTIOMETER SENSOR_NIVEL_PIN
 
 //LED usado para indicar se tá executando e se (COLOCAR OUTRA COISA); Só esta sendo usado para testes.
 #define l1  LED_1_PIN
@@ -175,6 +186,14 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 			}
 		}
 		
+		if(ESTADO == FINALIZADO){
+			//Parar
+			if(isBTN_DOWN(bt2)){
+				ESTADO = PEGANDO_DADOS;
+				clearDisplay(); mostraMenuDisplay(&spinners);
+			}
+		}
+		
 		//Espera para não pegar muitos cliques de uma vez só.
 		delay_ms(500);
 	
@@ -188,7 +207,6 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 //Pega os dados que a pessoa digitou no display.
 PT_THREAD(pt_pegaDados(struct pt *pt))
 {
-	static int alreadyPrint;
 	//Inicia a protothread.
 	PT_BEGIN(pt);
 	
@@ -233,7 +251,8 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 			printString("PAUSAR         PARAR", 0, 25);
 		}
 		
-		//Fazer logica com os subestados como o batendo, centrifugando, secando e tals.
+		//Pega o nivel de agua do ADC.
+		NIVEL_SENSOR = valorAtualSensor(POTENTIOMETER); 
 		
 		//Rerorna para da protothread.
 		PT_YIELD(pt);
@@ -245,15 +264,111 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 //Controla a execução do sistema. Exemplo. Agora tem que enxer, agora bater, agroa centrifugar.
 PT_THREAD(pt_contorlaExecution(struct pt *pt))
 {
-	static int alreadyPrint;
+	static int time;
+	static EXECUTANDO_t Prev_State = PEGANDO_DADOS;
+	
 	//Inicia a protothread.
 	PT_BEGIN(pt);
 	
 	//Sempre pegar os dados e os processas.
 	while(1){
+		//Modo de execuçãão.
+		//Enxe->Bate->Esvazia->Enxe->Molho->Esvazia->Enxee->Encagua->Esvazia->Centrifufa->Seca.
 		
-		//Fazer logica com os subestados como o batendo, centrifugando, secando e tals.
+		//Se tiver executando faz algo, senão  não tem execução para controlar.
+		if(ESTADO == EXECUTANDO){
+			//Controla os subestados. Vai de subestado em subestado.
+			switch(EXECUTION){
+				
+				case FAZENDO_NADA:
+					//Iniciou agora., logo zera o tempo e seta algo para executar.
+					time = 0; EXECUTION = ENXER; Prev_State = FAZENDO_NADA; concatString("ENXER", 70, 10);  //Usado para imprimir o subestado atual.
+				break;
+				
+				case ENXER:
+					//Espera até a agua chegar no valor do nivel selecionado. //Se tiver enxendo, temos de saber se enxeu para bater ou para enxaguar ou sei lá pq.
+					if(NIVEL_SENSOR >= NIVEL_AGUA){
+						//Verificar o que esta sendo feito antes.
+						if(Prev_State == FAZENDO_NADA){
+							EXECUTION = BATER; Prev_State = BATER; concatString("BATER", 70, 10);  //Usado para imprimir o subestado atual.
+						}else
+						
+						if(Prev_State == BATER){
+							EXECUTION = MOLHO; Prev_State = MOLHO; concatString("MOLHO", 70, 10);  //Usado para imprimir o subestado atual.
+						}else
+						
+						if(Prev_State == MOLHO){
+							EXECUTION = ENXAGUAR; Prev_State = ENXAGUAR; concatString("ENXAGUE", 70, 10);  //Usado para imprimir o subestado atual.
+						}
+						time = 0;  //Zera o timer.
+					}
+				break;
+				
+				case ESVAZIAR:
+					//Espera até esvaziar.
+					if(NIVEL_SENSOR <= SENSOR_NIVEL_ZERO){
+						//Verificar o que esta sendo feito antes.
+						if(Prev_State == BATER || Prev_State == MOLHO){
+							EXECUTION = ENXER; concatString("ENXER", 70, 10);  //Usado para imprimir o subestado atual.
+						}else
+						
+						if(Prev_State == ENXAGUAR){
+							EXECUTION = CENTRIFUGAR; Prev_State = FAZENDO_NADA; concatString("CENTRIFUG", 70, 10);  //Usado para imprimir o subestado atual.
+						}
+						time = 0;  //Zera o timer.
+					}
+				break;
+				
+				case BATER:
+					//Só espera o tempo acabar.
+					if((time > TIME_BATER && MODO == RAPIDO) || (time > 2*TIME_BATER && MODO == NORMAL) || (time > 3*TIME_BATER && MODO == PESADO)){
+						EXECUTION = ESVAZIAR; concatString("ESVAZIAR", 70, 10);  //Usado para imprimir o subestado atual.
+					}
+				break;
+				
+				case MOLHO:
+					//Só espera o tempo acabar.
+					if((time > TIME_MOLHO && MODO == RAPIDO) || (time > 2*TIME_MOLHO && MODO == NORMAL) || (time > 3*TIME_MOLHO && MODO == PESADO)){
+						EXECUTION = ESVAZIAR; concatString("ESVAZIAR", 70, 10);  //Usado para imprimir o subestado atual.
+					}
+				break;
+				
+				case ENXAGUAR:
+					//Só espera o tempo acabar.
+					if((time > TIME_ENXAGUAR && MODO == RAPIDO) || (time > 2*TIME_ENXAGUAR && MODO == NORMAL) || (time > 3*TIME_ENXAGUAR && MODO == PESADO)){
+						EXECUTION = ESVAZIAR; concatString("ESVAZIAR", 70, 10);  //Usado para imprimir o subestado atual.
+					}
+				break;
+				
+				case CENTRIFUGAR:
+					//Só espera o tempo acabar.
+					if((time > TIME_CENTRIFUGAR && MODO == RAPIDO) || (time > 2*TIME_CENTRIFUGAR && MODO == NORMAL) || (time > 3*TIME_CENTRIFUGAR && MODO == PESADO)){
+						EXECUTION = SECANDO; concatString("SECANDO", 70, 10);  //Usado para imprimir o subestado atual.
+					}
+				break;
+				
+				case SECANDO:
+					//Só espera o tempo acabar.
+					if((time > TIME_SECANDO && SECAR == MORNO) || (time > 2*TIME_SECANDO && SECAR == QUENTE) || (time > 3*TIME_SECANDO && SECAR == VAPOR)){
+						EXECUTION = FAZENDO_NADA; ESTADO = FINALIZADO; 			printString("---FINALIZADO---", 10, 10); printString("------         PARAR", 0, 25);
+					}
+				break;
+				
+				default:
+					concatString("ERRO", 70, 10);  //Usado para imprimir o subestado atual.
+				break;
+			}
+			
+			//Independente do estado o tempo, sempre avança.
+			//Time do sistema. Se der tempo subistituir pelo TIMER do uC (usando o modulo do timer). Não usar as functions de delay pq elas travam o uC.
+			time++;
+			
+		}else
 		
+		//Se o estado estiver parado, tem que resetar a execução.
+		if(ESTADO == PEGANDO_DADOS){
+			EXECUTION = FAZENDO_NADA;
+		}
 		//Rerorna para da protothread.
 		PT_YIELD(pt);
 	}
@@ -278,7 +393,7 @@ PT_THREAD(pt_controlaComponentes(struct pt *pt))
 		
 		//***VALVULA***
 		//Estado é executnado, logo verifica se é para colocar agua.
-		if(ESTADO == EXECUTANDO && ( EXECUTION == ENXER) ){
+		if(ESTADO == EXECUTANDO && ( EXECUTION == ENXER || (EXECUTION == SECANDO && SECAR == VAPOR)) ){
 			LED_On(l_bomba);
 		}else{
 			LED_Off(l_bomba);
@@ -321,6 +436,9 @@ int main(void)
 	
 	//Configura os btns e os leds externos (lateral)
 	init_external_btnLed();
+	
+	//Configura o ADC.
+	initSensor_NivelAgua();
 
 	//Configura
 	configure_usart();

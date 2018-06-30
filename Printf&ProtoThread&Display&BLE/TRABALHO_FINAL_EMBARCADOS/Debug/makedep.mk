@@ -6,6 +6,8 @@ src\adc_lib\adc_configure.c
 
 src\adc_lib\adc_temp.c
 
+src\adc_lib\adc_lib.c
+
 src\ASF\common2\components\display\ssd1306\ssd1306.c
 
 src\ASF\common2\services\delay\sam0\systick_counter.c

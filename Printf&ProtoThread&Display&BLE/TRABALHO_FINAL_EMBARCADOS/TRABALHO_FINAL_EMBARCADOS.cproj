@@ -739,6 +739,9 @@
     <Compile Include="src\adc_lib\adc_temp.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\adc_lib\adc_lib.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\adc_lib\conf_example.h">
       <SubType>compile</SubType>
     </Compile>

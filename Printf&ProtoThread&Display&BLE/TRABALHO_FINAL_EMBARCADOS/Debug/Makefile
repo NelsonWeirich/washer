@@ -121,6 +121,7 @@ SUBDIRS :=  \
 C_SRCS +=  \
 ../src/adc_lib/adc_configure.c \
 ../src/adc_lib/adc_temp.c \
+../src/adc_lib/adc_lib.c \
 ../src/ASF/common2/components/display/ssd1306/ssd1306.c \
 ../src/ASF/common2/services/delay/sam0/systick_counter.c \
 ../src/ASF/common2/services/gfx_mono/gfx_mono_ug_2832hsweg04.c \
@@ -165,6 +166,7 @@ ASM_SRCS +=
 OBJS +=  \
 src/adc_lib/adc_configure.o \
 src/adc_lib/adc_temp.o \
+src/adc_lib/adc_lib.o \
 src/ASF/common2/components/display/ssd1306/ssd1306.o \
 src/ASF/common2/services/delay/sam0/systick_counter.o \
 src/ASF/common2/services/gfx_mono/gfx_mono_ug_2832hsweg04.o \
@@ -202,6 +204,7 @@ src/main.o
 OBJS_AS_ARGS +=  \
 src/adc_lib/adc_configure.o \
 src/adc_lib/adc_temp.o \
+src/adc_lib/adc_lib.o \
 src/ASF/common2/components/display/ssd1306/ssd1306.o \
 src/ASF/common2/services/delay/sam0/systick_counter.o \
 src/ASF/common2/services/gfx_mono/gfx_mono_ug_2832hsweg04.o \
@@ -239,6 +242,7 @@ src/main.o
 C_DEPS +=  \
 src/adc_lib/adc_configure.d \
 src/adc_lib/adc_temp.d \
+src/adc_lib/adc_lib.d \
 src/ASF/common2/components/display/ssd1306/ssd1306.d \
 src/ASF/common2/services/delay/sam0/systick_counter.d \
 src/ASF/common2/services/gfx_mono/gfx_mono_ug_2832hsweg04.d \
@@ -276,6 +280,7 @@ src/main.d
 C_DEPS_AS_ARGS +=  \
 src/adc_lib/adc_configure.d \
 src/adc_lib/adc_temp.d \
+src/adc_lib/adc_lib.d \
 src/ASF/common2/components/display/ssd1306/ssd1306.d \
 src/ASF/common2/services/delay/sam0/systick_counter.d \
 src/ASF/common2/services/gfx_mono/gfx_mono_ug_2832hsweg04.d \
@@ -325,6 +330,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
