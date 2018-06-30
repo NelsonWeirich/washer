@@ -10,10 +10,10 @@
 
 //Todas as string que serem colocadas no display.
 PROGMEM_DECLARE(char, spinner_modo[]) = "Modo:";
-PROGMEM_DECLARE(char, spinner_agua[]) = "Água:";
+PROGMEM_DECLARE(char, spinner_agua[]) = "Nivel:";
 PROGMEM_DECLARE(char, spinner_secar[]) = "Secar:";
 PROGMEM_DECLARE(char, spinCHC_modo_normal[]) = "Nornal";
-PROGMEM_DECLARE(char, spinCHC_modo_rapido[]) = "Rápido";
+PROGMEM_DECLARE(char, spinCHC_modo_rapido[]) = "Rapido";
 PROGMEM_DECLARE(char, spinCHC_modo_pesado[]) = "Pesado";
 PROGMEM_DECLARE(char, spinCHC_agua_baixo[]) = "Baixo";
 PROGMEM_DECLARE(char, spinCHC_agua_medio[]) = "Medio";
@@ -21,7 +21,7 @@ PROGMEM_DECLARE(char, spinCHC_agua_alto[]) = "Alto";
 PROGMEM_DECLARE(char, spinCHC_secar_morno[]) = "Morno";
 PROGMEM_DECLARE(char, spinCHC_secar_quente[]) = "Quente";
 PROGMEM_DECLARE(char, spinCHC_secar_vapor[]) = "Vapor";
-
+	
 //Opções para o modo.
 PROGMEM_STRING_T spinner_choices_modo[] = {
 	spinCHC_modo_normal,
@@ -47,10 +47,6 @@ PROGMEM_STRING_T spinner_choices_secar[] = {
 struct gfx_mono_spinctrl modo;
 struct gfx_mono_spinctrl agua;
 struct gfx_mono_spinctrl secar;
-//struct gfx_mono_spinctrl_spincollection modo_collection;
-//struct gfx_mono_spinctrl_spincollection agua_collection;
-//struct gfx_mono_spinctrl_spincollection secar_collection;
-//struct gfx_mono_spinctrl_spincollection spinners;
 
 //Inicializa o display, com tudo. Inicializando tudo e setando os spinners.
 void init_OLED_display(struct gfx_mono_spinctrl_spincollection *spinners){
