@@ -6,6 +6,8 @@ http://asf.atmel.com/docs/latest/
 
 https://www.microchip.com/development-tools
 
+# https://www.microchip.com/webdoc/samd21xplainedpro/index.html
+
 + http://asf.atmel.com/docs/3.35.1/samd21/html/index.html
 + PORT_IO  ==> http://asf.atmel.com/docs/3.35.1/samd21/html/asfdoc_sam0_port_basic_use_case.html
 + GFX_SPIN ==> http://asf.atmel.com/docs/latest/samd21/html/group__asfdoc__common2__gfx__mono__spinctrl.html#ga1fa0758397ad46035695689b03b00bbf
@@ -25,7 +27,7 @@ http://asf.atmel.com/docs/latest/sam.drivers.usart.usart_synchronous_example.sam
 
 # _TODOS_
 
-- - Open the index.html file to access CMSIS documentation __NOTE__ [Printf&ProtoThread&Display&BLE/TRABALHO_FINAL_EMBARCADOS/src/ASF/thirdparty/CMSIS/README.txt](Printf&ProtoThread&Display&BLE/TRABALHO_FINAL_EMBARCADOS/src/ASF/thirdparty/CMSIS/README.txt)
+- Open the index.html file to access CMSIS documentation __NOTE__ [Printf&ProtoThread&Display&BLE/TRABALHO_FINAL_EMBARCADOS/src/ASF/thirdparty/CMSIS/README.txt](Printf&ProtoThread&Display&BLE/TRABALHO_FINAL_EMBARCADOS/src/ASF/thirdparty/CMSIS/README.txt)
 - : Confirmar os envios no gitHub. __CHANGED__ [Printf&ProtoThread&Display&BLE/TRABALHO_FINAL_EMBARCADOS/src/main.c](Printf&ProtoThread&Display&BLE/TRABALHO_FINAL_EMBARCADOS/src/main.c)
 - : Definir pino do adc. Verificar se os modulos est�o devidos corretos no asf wizzard. __TODO__ [Printf&ProtoThread&Display&BLE/TRABALHO_FINAL_EMBARCADOS/src/adc_lib/adc_lib.h](Printf&ProtoThread&Display&BLE/TRABALHO_FINAL_EMBARCADOS/src/adc_lib/adc_lib.h)
 - : Fazer fun��es abaixo. __TODO__ [Printf&ProtoThread&Display&BLE/TRABALHO_FINAL_EMBARCADOS/src/adc_lib/adc_lib.h](Printf&ProtoThread&Display&BLE/TRABALHO_FINAL_EMBARCADOS/src/adc_lib/adc_lib.h)
