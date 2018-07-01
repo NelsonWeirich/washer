@@ -3,7 +3,7 @@
  *
  * Created: 26/06/2018 15:24:15
  *  Author: Eduardo Culau
- */ 
+ */
 
 //Bibliotecas para fazer as coisas.
 #include <asf.h>
@@ -21,7 +21,7 @@ enum spinner_seca_suboptions{SECA_OPT_MORNO = 0, SECA_OPT_QUENTE, SECA_OPT_VAPOR
 enum spinner_ok_suboptions{OK_OPT_FALSE = 0, OK_OPT_TRUE};
 
 typedef enum subEstado{
-	ENXER,
+	ENCHER,
 	ESVAZIAR,
 	BATER,
 	MOLHO,
