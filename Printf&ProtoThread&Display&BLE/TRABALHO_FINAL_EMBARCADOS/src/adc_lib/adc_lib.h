@@ -15,14 +15,13 @@
 #include "adc_configure.h"
 #include "adc_temp.h"
 
-//TODO : Definir pino do adc. Verificar se os modulos est�o devidos corretos
-//no asf wizzard.
-//Pino do potenciomentor que vai ser o sensor de nivel da agua.
-#define SENSOR_NIVEL_PIN      PIN_PB00 //Definir o pino para entrar no ADC. (Verificar manula para ver quais pinos o adc tem acesso e a tens�o maxima).
-//Dar uma olhada, mas se n�o me engado era para ser pinos 3 e 4 de cada conection EXT, logo vamos usar a EXT1 ou EXT2, ent�o vai ser PB00 e PB01, ou PA20 e PA11.
+//CHANGED : Definido o pino do adc. EXT1[3] - PB00_AIN8 - ADC+
+//Pino do potenciomentro que vai ser o sensor de nivel da agua.
+#define SENSOR_NIVEL_PIN      PIN_PB00B_ADC_AIN8
 
 //TODO :Definir valores que devem vir do pot.
-//Valores a serem compardos no main com o valor que sai do adc. Tipo n�vel baixo o adc retorna 500, logo compara com 500.
+//Valores a serem compardos no main com o valor que sai do adc.
+//Tipo n�vel baixo o adc retorna 500, logo compara com 500.
 #define SENSOR_NIVEL_ZERO     0
 #define SENSOR_NIVEL_BAIXO    500
 #define SENSOR_NIVEL_MEDIO    1500
