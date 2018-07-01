@@ -20,10 +20,10 @@
 //CHANGED: Definido os pinos corretos dos btns e dos led conectados na placa.
 //Btns e LEDs externos. Tudos vai ligado em uma porta+ e no gnd-. Os btn ficam em pull-up na porta.
 #define BTN_TAMPA_PIN		  PIN_PB06 //Se der tempo fazer uma interrup��o para ele, se n�o der � s� ler dele.
-#define LED_MOTOR_PIN		  PIN_PB07 //Definir o pino do led amarelo, indicando que � o motor.
-#define LED_SECADOR_PIN   PIN_PB05 //Definir pino do vermelho para o secador.
-#define LED_VALVULA_PIN		PIN_PA20 //Definir led transparente(azul) para ser a valvula (entrar agua).
-#define LED_BOMBA_PIN     PIN_PA21 //Definir led verde para ser a bomba (tira agua).
+#define LED_MOTOR_PIN		  PIN_PA20 //Definir o pino do led amarelo, indicando que � o motor.
+#define LED_SECADOR_PIN   PIN_PA21 //Definir pino do vermelho para o secador.
+#define LED_VALVULA_PIN		PIN_PB05 //Definir led transparente(azul) para ser a valvula (entrar agua).
+#define LED_BOMBA_PIN     PIN_PB15 //Definir led verde para ser a bomba (tira agua).
 
 //Inicializa todos os btns e os leds.
 void init_OLED_btnLed(void);
