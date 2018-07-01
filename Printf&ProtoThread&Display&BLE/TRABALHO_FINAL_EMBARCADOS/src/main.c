@@ -240,8 +240,8 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 		}
 
 		//Pegar se a tampa esta aberta.
-		//TODO : Tirar o negado para funcionar corretamente, pegando o valor do btn conectado na placa.
-		if(ESTADO == EXECUTANDO && !isBTN_UP(bt_tampa) ){
+		//CHANGED: removido o negado do btn
+		if(ESTADO == EXECUTANDO && isBTN_UP(bt_tampa) ){
 			ESTADO = TAMPA_ABERTA;
 			printString("---TAMPA ABERTA---", 10, 10);
 			printString("------         PARAR", 0, 25);
@@ -468,8 +468,8 @@ int main(void)
 		//Fica trocando entre as protothreads.
 		pt_gerenciaDisplay(&pt_gD);
 		pt_pegaDados(&pt_pD);
-		pt_controlaComponentes(&pt_cC);
 		pt_contorlaExecution(&pt_cE);
+		pt_controlaComponentes(&pt_cC);
 	}
 
 }
