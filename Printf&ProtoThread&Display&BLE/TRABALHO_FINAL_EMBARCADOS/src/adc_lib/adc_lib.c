@@ -94,3 +94,43 @@ int  valorAtualSensor(int Sensor){
 	}
 
 }
+
+#include "driver_init.h"
+#include <peripheral_clk_config.h>
+#include <utils.h>
+#include <hal_init.h>
+#include <hpl_gclk_base.h>
+#include <hpl_pm_base.h>
+
+#include <hpl_adc_base.h>
+
+struct adc_sync_descriptor ADC_0;
+
+void ADC_0_PORT_init(void)
+{
+
+	// Disable digital pin circuitry
+	gpio_set_pin_direction(PB00, GPIO_DIRECTION_OFF);
+
+	gpio_set_pin_function(PB00, PINMUX_PB00B_ADC_AIN8);
+}
+
+void ADC_0_CLOCK_init(void)
+{
+	_pm_enable_bus_clock(PM_BUS_APBC, ADC);
+	_gclk_enable_channel(ADC_GCLK_ID, CONF_GCLK_ADC_SRC);
+}
+
+void ADC_0_init(void)
+{
+	ADC_0_CLOCK_init();
+	ADC_0_PORT_init();
+	adc_sync_init(&ADC_0, ADC, (void *)NULL);
+}
+
+void system_init(void)
+{
+	init_mcu();
+
+	ADC_0_init();
+}
