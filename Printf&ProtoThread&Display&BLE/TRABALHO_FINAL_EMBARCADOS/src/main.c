@@ -254,7 +254,7 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 		}
 
 		//Pegar se a tampa esta aberta.
-		//CHANGED: removido o negado do btn
+		//CHANGED: Removido o negado do btn
 		if(ESTADO == EXECUTANDO && isBTN_UP(bt_tampa) ){
 			ESTADO = TAMPA_ABERTA;
 			printString("---TAMPA ABERTA---", 10, 10);
@@ -422,9 +422,9 @@ PT_THREAD(pt_controlaComponentes(struct pt *pt))
 		//***VALVULA***
 		//Estado executando, logo verifica se é para colocar agua.
 		if(ESTADO == EXECUTANDO && ( EXECUTION == ENCHER || (EXECUTION == SECANDO && SECAR == VAPOR)) ){
-			LED_ON(l_bomba);
+			LED_ON(l_valvula);
 		}else{
-			LED_OFF(l_bomba);
+			LED_OFF(l_valvula);
 		}
 
 		//***BOMBA***

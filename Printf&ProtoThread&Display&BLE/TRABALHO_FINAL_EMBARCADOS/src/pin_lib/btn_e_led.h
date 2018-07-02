@@ -14,6 +14,7 @@
 #ifndef BTN_E_LED_H_
 #define BTN_E_LED_H_
 
+// CHANGED: Redefinida a macro led_on e led_off por causa da lógica invertida da ASF
 #define LED_ON(led_gpio)  LED_Off(led_gpio) /*!< Redefiniçãa da macro LED_On devido à lógica invertida */
 #define LED_OFF(led_gpio) LED_On(led_gpio) /*!< Redefinição da macro LED_Off devido à lógica invertida */
 
