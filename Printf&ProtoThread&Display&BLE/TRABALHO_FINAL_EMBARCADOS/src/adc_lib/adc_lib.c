@@ -1,56 +1,96 @@
-/*
- * CFile1.c
+/**
+ * \file adc_lib.c
+ * \brief Biblioteca do ADC
+ * \details Funções para manipulação do ADC para uso
+ * de entrada analógica.
  *
- * Created: 29/06/2018 16:24:32
- *  Author: Eduardo Culau
- */ 
+ * \author Eduardo Capellari Culau
+ * \author Nelson Roberto Weirich Junior
+ *
+ * \date 29/06/2018 16:24:32
+ * \copyright GNU Public License
+ */
 
 //Incluir a lib
 #include "adc_lib.h"
 
-//Inicializar tudo, mede e tals. //TODO
-void initSensor_NivelAgua(void){
-	
+/*! Store ADC driver state */
+struct adc_module adc_instance;
+
+void initSensor_NivelAgua(void) {
+// 	// Configuration struct
+//   struct adc_config config_adc;
+// 	// Initialize the ADC configuration struct
+//   adc_get_config_defaults(&config_adc);
+// 	// Change the ADC module configuration to suilt the application
+// #if (!SAML21) && (!SAML22) && (!SAMC21)
+//   config_adc.gain_factor = ADC_GAIN_FACTOR_DIV2;
+// #endif
+//   config_adc.clock_prescaler = ADC_CLOCK_PRESCALER_DIV8;
+//   config_adc.reference = ADC_REFERENCE_INTVCC1;
+// #if (SAMC21)
+//   config_adc.positive_input = ADC_POSITIVE_INPUT_PIN5;
+// #else
+//   config_adc.positive_input = ADC_POSITIVE_INPUT_PIN6;
+// #endif
+//   config_adc.resolution = ADC_RESOLUTION_12BIT;
+//   // Set ADC configurations
+// #if (SAMC21)
+//   adc_init(&adc_instance, ADC1, &config_adc);
+// #else
+//   adc_init(&adc_instance, ADC, &config_adc);
+// #endif
+//   // Enable the ADC module
+//   adc_enable(&adc_instance);
 }
 
-//Aqui dentro tem um if, ela s� retorna os defines. //TODO
+/*! \brief Retorna o valor convertido do ADC
+ *  \param Sensor inteiro identificador do pino do sensor
+ *  \return valor lido do sensor e convertido para um valor entre 0-2047
+ */
 int  valorAtualSensor(int Sensor){
-	//L� do adc.
-	static int count = 0, count2 = 0;
-	/*
-	
-	if(zero > valor_adc < valor_min ){
-		return SENSOR_NIVEL_ZERO
+	uint16_t valor_adc;
+
+	//Start conversion
+	adc_start_conversion(&adc_instance);
+
+  // Wait until the conversion is complete
+	do {
+
+	}	while (adc_read(&adc_instance, &valor_adc) == STATUS_BUSY);
+
+  int count = 0, count2 = 0;
+
+  if(count2 > 250){
+  	if(count > 600){
+  		count = 0;
+  	}else{
+  		count++;
+  	}
+  	count2 = 0;
+  }else{
+  	count2++;
+  }
+  return count;
+////////////////////////////////////////
+	if(0 <= valor_adc < 128 ){
+		return SENSOR_NIVEL_ZERO; /*!< 0 */
 	}else
-	
-	if(valor_min > valor_adc < valor_baixo){
-		return SENSOR_NIVEL_BAIXO
+
+	if(128 <= valor_adc < 700){
+		return SENSOR_NIVEL_BAIXO; /*!< 512 */
 	}else
-	
-	if(valor_baixo > valor_adc < valor_medio){
-		return SENSOR_NIVEL_MEDIO
+
+	if(700 <= valor_adc < 1128){
+		return SENSOR_NIVEL_MEDIO; /*!< 1023 */
 	}else
-	
-	if(valor_medio > valor_adc < valor_alto){
-		return SENSOR_NIVEL_ALTO
+
+	if(1128 <= valor_adc < 1700){
+		return SENSOR_NIVEL_ALTO; /*!< 1540 */
 	}else
-	
-	if(valor_alto > valor_adc){
-		return SENSOR_NIVEL_FULL
+
+	if(1700 <= valor_adc){
+		return SENSOR_NIVEL_FULL; /*!< 2047 */
 	}
-	
-	*/
-	
-	if(count2 > 250){	
-		if(count > 600){
-			count = 0;
-		}else{
-			count++;
-		}
-		count2 = 0;
-	}else{
-		count2++;
-	}
-	
-	return count;
+
 }

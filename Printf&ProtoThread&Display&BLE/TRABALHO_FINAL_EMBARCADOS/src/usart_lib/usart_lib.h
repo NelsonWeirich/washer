@@ -1,21 +1,26 @@
-/*
- * usart_lib.h
- *
- * Created: 25/06/2018 16:32:36
- *  Author: Eduardo Culau
- */ 
+ /**
+  * \file usart_lib.h
+  * \brief Biblioteca da usart
+  * \details Funções para manipulação da porta serial
+  *
+  * \author Eduardo Capellari Culau
+  * \author Nelson Roberto Weirich Junior
+  *
+  * \date 25/06/2018 16:32:36
+  * \copyright GNU Public License
+  */
 
 #include <asf.h>
 
 #ifndef USART_LIB_H_
 #define USART_LIB_H_
 
-//Declara a instancia do uart.
+/*! Instancia do usart. */
 struct usart_module usart_instance;
 
-#define MAX_RX_BUFFER_LENGTH   100
+#define MAX_RX_BUFFER_LENGTH   100 /*!< Tamanho máximo do buffer receptor. */
 
-//Fun��es de callback.
+//Funções de callback.
 void usart_read_callback(struct usart_module *const usart_module);
 void usart_write_callback(struct usart_module *const usart_module);
 
