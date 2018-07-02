@@ -27,10 +27,10 @@
 //Valores a serem compardos no main com o valor que sai do adc.
 //Tipo nivel baixo o adc retorna 500, logo compara com 500.
 #define SENSOR_NIVEL_ZERO     0
-#define SENSOR_NIVEL_BAIXO    512
-#define SENSOR_NIVEL_MEDIO    1023
-#define SENSOR_NIVEL_ALTO     1540
-#define SENSOR_NIVEL_FULL     2047
+#define SENSOR_NIVEL_BAIXO    400
+#define SENSOR_NIVEL_MEDIO    700
+#define SENSOR_NIVEL_ALTO     1000
+#define SENSOR_NIVEL_FULL     1002
 
 void initSensor_NivelAgua(void);   //inicializa os sensores
 int  valorAtualSensor(int Sensor); //retorna o nivel da agua

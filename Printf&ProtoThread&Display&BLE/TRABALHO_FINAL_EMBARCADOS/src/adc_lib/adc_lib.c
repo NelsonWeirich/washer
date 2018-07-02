@@ -50,7 +50,7 @@ int  valorAtualSensor(int Sensor){
 // 	}
 
   if(count2 > 250){
-    if(count > 600){
+    if(count > SENSOR_NIVEL_FULL){
       count = 0;
     }else{
       count++;
