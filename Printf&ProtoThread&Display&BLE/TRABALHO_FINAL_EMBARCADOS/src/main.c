@@ -475,7 +475,7 @@ int main(void)
 	configure_usart();
 	configure_usart_callbacks();
 
-	//Ativa o intr do sistema para pegar o usb.
+	//Ativa o intr do sistema
 	system_interrupt_enable_global();
 
 	//Gasta tempo e Inicial. Tempo para abrir o terminal e poder ver desde o inicio.
