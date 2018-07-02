@@ -15,8 +15,6 @@
 #ifndef ADC_LIB_H_
 #define ADC_LIB_H_
 
-
-//Só inclui todas as libs.
 #include <asf.h>
 #include "adc_configure.h"
 #include "adc_temp.h"
@@ -33,10 +31,7 @@
 #define SENSOR_NIVEL_ALTO     1540
 #define SENSOR_NIVEL_FULL     2047
 
-//TODO : Fazer fun��es abaixo.
 void initSensor_NivelAgua(void);   //inicializa os sensores
 int  valorAtualSensor(int Sensor); //retorna o nivel da agua
-
-//Se o adc for por pooling valorAtualSensor deve fazer a medido, se for por DMA, ela deve s� ser a variave(memoria) compartilhada.
 
 #endif /* ADC_LIB_H_ */

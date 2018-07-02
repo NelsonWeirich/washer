@@ -15,23 +15,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .comment      00000059  00000000  00000000  000200d8  2**0
                   CONTENTS, READONLY
-  6 .debug_info   00054d0b  00000000  00000000  00020131  2**0
+  6 .debug_info   0005591b  00000000  00000000  00020131  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00006557  00000000  00000000  00074e3c  2**0
+  7 .debug_abbrev 0000657e  00000000  00000000  00075a4c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    0000b327  00000000  00000000  0007b393  2**0
+  8 .debug_loc    0000b327  00000000  00000000  0007bfca  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_aranges 00000880  00000000  00000000  000866ba  2**0
+  9 .debug_aranges 00000880  00000000  00000000  000872f1  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000dd0  00000000  00000000  00086f3a  2**0
+ 10 .debug_ranges 00000dd0  00000000  00000000  00087b71  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macro  0000bed2  00000000  00000000  00087d0a  2**0
+ 11 .debug_macro  0000bed1  00000000  00000000  00088941  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   0001831f  00000000  00000000  00093bdc  2**0
+ 12 .debug_line   0001831f  00000000  00000000  00094812  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    00092335  00000000  00000000  000abefb  2**0
+ 13 .debug_str    00092652  00000000  00000000  000acb31  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  00001d40  00000000  00000000  0013e230  2**2
+ 14 .debug_frame  00001d40  00000000  00000000  0013f184  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -94,20 +94,20 @@ Disassembly of section .text:
      110:	00000000 	.word	0x00000000
 
 00000114 <initSensor_NivelAgua>:
-	// 		// read the value from the ADC for channel 0
-	// 		adc_val = adc_get_status( ADC_CHANNEL_0);
-	// 		// display the ADC value in decimal and hexadecimal
-	// 		printf("ADC value: %04u, 0x%04x\r\n", (unsigned)adc_val, (unsigned)adc_val);
-	// 	}
+// #else
+//   adc_init(&adc_instance, ADC, &config_adc);
+// #endif
+//   // Enable the ADC module
+//   adc_enable(&adc_instance);
 }
      114:	4770      	bx	lr
 	...
 
 00000118 <valorAtualSensor>:
-		return SENSOR_NIVEL_FULL //2047
-	}
-
-	*/
+	// 	return SENSOR_NIVEL_FULL /*!< 2047 */
+	// }
+  // Le do adc.
+  static int count = 0, count2 = 0;
 
 	if(count2 > 250){
      118:	4b0d      	ldr	r3, [pc, #52]	; (150 <valorAtualSensor+0x38>)
@@ -135,7 +135,6 @@ Disassembly of section .text:
 	}else{
 		count2++;
 	}
-
 	return count;
      138:	4b06      	ldr	r3, [pc, #24]	; (154 <valorAtualSensor+0x3c>)
      13a:	6818      	ldr	r0, [r3, #0]
@@ -7169,7 +7168,7 @@ __attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_irq(void)
     349a:	4b17      	ldr	r3, [pc, #92]	; (34f8 <main+0x8c>)
     349c:	3b01      	subs	r3, #1
 
-	//Ativa o intr do sistema para pegar o usb.
+	//Ativa o intr do sistema
 	system_interrupt_enable_global();
 
 	//Gasta tempo e Inicial. Tempo para abrir o terminal e poder ver desde o inicio.
