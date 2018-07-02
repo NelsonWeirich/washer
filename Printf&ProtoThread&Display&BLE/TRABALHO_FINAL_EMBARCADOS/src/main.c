@@ -1,9 +1,14 @@
-/*
-NOMES: Eduardo Capellari Culau
-       Nelson Weirich Junior
-
-DATA: 25/06/2018
-*/
+/**
+ * \file main.c
+ * \brief Aplicação principal.
+ * \details Apllicação da lavadora.
+ *
+ * \author Eduardo Capellari Culau
+ * \author Nelson Roberto Weirich Junior
+ *
+ * \date 25/06/2018
+ * \copyright GNU Public License
+ */
 
 #include <asf.h>
 #include <stdio.h>
@@ -26,7 +31,7 @@ DATA: 25/06/2018
 //ProtoThreads
 #include "pt_lib/pt.h"
 
-//Estados da maquina.
+/*! Estados da maquina. */
 typedef enum ESTADOS{
 	PEGANDO_DADOS = 0,
 	EXECUTANDO,
@@ -39,16 +44,17 @@ ESTADO_t ESTADO = PEGANDO_DADOS;
 
 EXECUTANDO_t EXECUTION = FAZENDO_NADA;
 
-//Variaveis
+/*! Variaveis de nível de água */
 typedef enum NIVEL__da_AGUA{
-	BAIXO = SENSOR_NIVEL_BAIXO,
-	MEDIO = SENSOR_NIVEL_MEDIO,
-	ALTO  = SENSOR_NIVEL_ALTO,
+	BAIXO = SENSOR_NIVEL_BAIXO, /*!< Nível baixo */
+	MEDIO = SENSOR_NIVEL_MEDIO, /*!< Nível médio */
+	ALTO  = SENSOR_NIVEL_ALTO,  /*!< Nível alto */
 } NIVEL_t;
 
 NIVEL_t NIVEL_AGUA   = BAIXO;
 int     NIVEL_SENSOR = SENSOR_NIVEL_ZERO;
 
+/*! Modos de lavagem */
 typedef enum MODO_EXECUTAR{
 	NORMAL = 0,
 	RAPIDO,
@@ -57,6 +63,7 @@ typedef enum MODO_EXECUTAR{
 
 MODE_t MODO = NORMAL;
 
+/*! Modos de secagem */
 typedef enum SECAR_EXECUTAR{
 	MORNO = 0,
 	QUENTE,
@@ -65,11 +72,11 @@ typedef enum SECAR_EXECUTAR{
 
 SECA_t SECAR = MORNO;
 
-//Usado para fazer o menu e pegar as opcoes selecionadas.
+/*! Estrutura para uso do do menu */
 struct gfx_mono_spinctrl_spincollection spinners;
 int16_t selecionado[4];
 
-//Estrutura do timer
+/*! Estrutura do timer */
 struct timer { int start, interval; };
 
 //Timer espirou?
@@ -92,26 +99,29 @@ struct timer { int start, interval; };
 #define TIME_SECANDO     70000
 
 //Btn usados para controlar o menu.
-#define bt1 BUTTON_1_PIN
-#define bt2 BUTTON_2_PIN
+#define bt1 BUTTON_1_PIN /*!< Botão de seleção esquerdo */
+#define bt2 BUTTON_2_PIN /*!< Botão de seleção direito */
 
 //Btn usado para pegar se a tampa esta aberta.
-#define bt_tampa BTN_TAMPA_PIN
+#define bt_tampa BTN_TAMPA_PIN /*!< Botão da tampa */
 //Leds usados para indicar que os componentes foram ligados.
-#define l_motor   LED_MOTOR_PIN
-#define l_secador LED_SECADOR_PIN
-#define l_valvula LED_VALVULA_PIN
-#define l_bomba   LED_BOMBA_PIN
+#define l_motor   LED_MOTOR_PIN /*!< LED do motor */
+#define l_secador LED_SECADOR_PIN /*!< LED da secaodra */
+#define l_valvula LED_VALVULA_PIN /*!< LED da válvula */
+#define l_bomba   LED_BOMBA_PIN /*!< LED da bomba */
 
 //Sensor nivel adc.
 #define POTENTIOMETER SENSOR_NIVEL_PIN
 
-//LED usado para indicar se esta executando e se (COLOCAR OUTRA COISA);
+//LED usado para indicar se esta executando;
 //Estao sendo usados para testes.
 #define l1  LED_1_PIN
 #define l3  LED_3_PIN
 
-//Mostra as coisas no display.
+/*! \brief Gerencia o conteúdo do display
+ *  Coordena o que aparece no display e a interação do usuário com o mesmo.
+ *  \param pt ponteiro de estrutura pt (pThread)
+ */
 PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 {
 	static uint8_t OK_pressed;
@@ -198,6 +208,10 @@ PT_THREAD(pt_gerenciaDisplay(struct pt *pt))
 }
 
 //Pega os dados que a pessoa digitou no display.
+/*! \brief Armazena os dados selecionados pelo usuário
+ *  Captura e armazena os dados que o usuário selecionou na tela.
+ *  \param pt ponteiro de estrutura pt (pThread)
+ */
 PT_THREAD(pt_pegaDados(struct pt *pt))
 {
 	//Inicia a protothread.
@@ -264,7 +278,11 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 	PT_END(pt);
 }
 
-//Controla a execucao do sistema. Exemplo: Agora tem que encher, agora bater, agroa centrifugar.
+/*! \brief Controla a execução do sistema
+ *  Controla os estados de execução do sistema em funcionamento. Por exemplo:
+ *  Encher, bater,  centrifugar, ...
+ *  \param pt ponteiro de estrutura pt (pThread)
+ */
 PT_THREAD(pt_contorlaExecution(struct pt *pt))
 {
 	static int time;
@@ -383,7 +401,10 @@ PT_THREAD(pt_contorlaExecution(struct pt *pt))
 	PT_END(pt);
 }
 
-//Liga os componentes de acordo com o que tem que acontecer no momento.
+/*! \brief Controle dos componentes
+ *  Aciona os componentes conforme o que estiver ocorrendo no momento.
+ *  \param pt ponteiro de estrutura pt (pThread)
+ */
 PT_THREAD(pt_controlaComponentes(struct pt *pt))
 {
 	//Inicia a protothread.
@@ -430,6 +451,9 @@ PT_THREAD(pt_controlaComponentes(struct pt *pt))
 	PT_END(pt);
 }
 
+/*! \brief Função principal
+ *  Inciializa o sistema e o mantém em funcionameno por tempo indeterminado.
+ */
 int main(void)
 {
 	//Inicializa

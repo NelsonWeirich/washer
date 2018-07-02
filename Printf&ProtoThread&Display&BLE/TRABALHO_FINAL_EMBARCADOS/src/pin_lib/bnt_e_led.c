@@ -1,25 +1,29 @@
-/*
- * bnt_e_led.c
- *
- * Created: 25/06/2018 17:53:00
- *  Author: Eduardo Culau
- */ 
+ /**
+  * \file btn_e_led.c
+  * \brief Biblioteca dos botões e LEDs
+  * \details Funções para manipulação dos botões e LEDs conectados à placa
+  *
+  * \author Eduardo Capellari Culau
+  * \author Nelson Roberto Weirich Junior
+  *
+  * \date 25/06/2018 17:53:00
+  * \copyright GNU Public License
+  */
 
-//Inclue a biblioteca
 #include <asf.h>
 
 #include "btn_e_led.h"
 
-//Configurar os pinos.
+/*! Configuração dos pinos da porta */
 struct port_config config_port_pin;
 
-//Inicializa todos os btns e os leds.
+/*! Inicializa os botões e os LEDs */
 void init_OLED_btnLed(void){
 	inicializa_btn();
 	inicializa_led();
 }
 
-//Inicializa os btns.
+/*! Inicializa os botões. */
 void inicializa_btn(void){
 	//Apaga a config.
 	port_get_config_defaults(&config_port_pin);
@@ -31,8 +35,7 @@ void inicializa_btn(void){
 	port_pin_set_config(BUTTON_2_PIN, &config_port_pin);
 }
 
-
-//Inicializa os leds.
+/*! Inicializa os leds. */
 void inicializa_led(void){
 	//Apaga a config.
 	port_get_config_defaults(&config_port_pin);
@@ -47,13 +50,13 @@ void inicializa_led(void){
 
 //****************************************************
 
-//Inicializa os bot�es e os leds externos (lateral).
+/*! Inicializa os botões e os LEDs externos (lateral). */
 void init_external_btnLed(void){
 	inicializa_exeternal_btn();
 	inicializa_external_led();
 }
 
-//Inicializa os btns.
+/*! Inicializa os botões externos. */
 void inicializa_exeternal_btn(void){
 	//Apaga a config.
 	port_get_config_defaults(&config_port_pin);
@@ -64,7 +67,7 @@ void inicializa_exeternal_btn(void){
 	port_pin_set_config(BTN_TAMPA_PIN, &config_port_pin);
 }
 
-//Inicializa os leds externos.
+/*! Inicializa os LEDs externos. */
 void inicializa_external_led(void){
 	//Apaga a config.
 	port_get_config_defaults(&config_port_pin);
@@ -83,12 +86,18 @@ void inicializa_external_led(void){
 
 //**************************************************
 
-//Retorna 1 se o btn n�o esta precionado.
+/*! \brief Testa se botão não pressionado.
+ *  \param btn o identificador do pino do botão.
+ *  \return 1 caso botão não pressionado.
+ */
 int isBTN_UP(uint8_t btn){
 	return (port_pin_get_input_level(btn));
 }
 
-//Retorna 1 se o btn estiver precionado.
+/*! \brief Testa se botão pressionado.
+ *  \param btn o identificador do pino do botão.
+ *  \return 1 caso botão pressionado.
+ */
 int isBTN_DOWN(uint8_t btn){
 	return (!port_pin_get_input_level(btn));
 }

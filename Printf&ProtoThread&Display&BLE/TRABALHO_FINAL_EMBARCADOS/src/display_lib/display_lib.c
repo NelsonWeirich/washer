@@ -1,14 +1,18 @@
-/*
- * CFile1.c
- *
- * Created: 26/06/2018 15:23:33
- *  Author: Eduardo Culau
- */
+ /**
+  * \file display_lib.c
+  * \brief Biblioteca do Display
+  * \details Funções para manipulação do Display
+  *
+  * \author Eduardo Capellari Culau
+  * \author Nelson Roberto Weirich Junior
+  *
+  * \date 26/06/2018 15:23:33
+  * \copyright GNU Public License
+  */
 
-//Inclui a biblioteca
 #include "display_lib.h"
 
-//Todas as string que serem colocadas no display.
+/*! Todas as string que serão colocadas no display. */
 PROGMEM_DECLARE(char, spinner_modo[]) = "Modo:";
 PROGMEM_DECLARE(char, spinner_agua[]) = "Nivel:";
 PROGMEM_DECLARE(char, spinner_secar[]) = "Secar:";
@@ -22,14 +26,14 @@ PROGMEM_DECLARE(char, spinCHC_secar_morno[]) = "Morno";
 PROGMEM_DECLARE(char, spinCHC_secar_quente[]) = "Quente";
 PROGMEM_DECLARE(char, spinCHC_secar_vapor[]) = "Vapor";
 
-//Op��es para o modo.
+//Opcoes para o modo.
 PROGMEM_STRING_T spinner_choices_modo[] = {
 	spinCHC_modo_normal,
 	spinCHC_modo_rapido,
 	spinCHC_modo_pesado,
 };
 
-//Op��es para a agua.
+//Opcoes para a agua.
 PROGMEM_STRING_T spinner_choices_agua[] = {
 	spinCHC_agua_baixo,
 	spinCHC_agua_medio,
@@ -48,7 +52,12 @@ struct gfx_mono_spinctrl modo;
 struct gfx_mono_spinctrl agua;
 struct gfx_mono_spinctrl secar;
 
-//Inicializa o display, com tudo. Inicializando tudo e setando os spinners.
+/*! \brief Inicializa o display
+ *  Inicializa o display com tudo e seta os spinners.
+ *
+ * \param spinners um ponteiro da estrutura gfx_mono_spinctrl_spincollection
+ *
+ */
 void init_OLED_display(struct gfx_mono_spinctrl_spincollection *spinners){
 
 	//Inicializa o GFX
@@ -56,11 +65,11 @@ void init_OLED_display(struct gfx_mono_spinctrl_spincollection *spinners){
 
 	// Initialize spinners
 	gfx_mono_spinctrl_init(&modo, SPINTYPE_STRING, spinner_modo,
-	spinner_choices_modo, 0, 2, 0); //Titulo do modo, com as op��es do modo. Sendo 3 op��es.
+	spinner_choices_modo, 0, 2, 0); //Titulo do modo, com as 3 opcoes do modo.
 	gfx_mono_spinctrl_init(&agua, SPINTYPE_STRING, spinner_agua,
-	spinner_choices_agua, 0, 2, 0); //Titulo do modo, com as op��es do modo. Sendo 3 op��es.
+	spinner_choices_agua, 0, 2, 0); //Titulo do modo, com as 3 opcoes do modo.
 	gfx_mono_spinctrl_init(&secar, SPINTYPE_STRING, spinner_secar,
-	spinner_choices_secar, 0, 2, 0); //Titulo do modo, com as op��es do modo. Sendo 3 op��es.
+	spinner_choices_secar, 0, 2, 0); //Titulo do modo, com as 3 opcoes do modo.
 
 	// Initialize spincollection
 	gfx_mono_spinctrl_spincollection_init(spinners);
@@ -77,17 +86,25 @@ void init_OLED_display(struct gfx_mono_spinctrl_spincollection *spinners){
 
 }
 
+/*! \brief Mostra o menu no display
+ *  \param spinners um ponteiro da estrutura gfx_mono_spinctrl_spincollection
+ */
 void mostraMenuDisplay (struct gfx_mono_spinctrl_spincollection *spinners){
 	// Show spincollection on screen
 	gfx_mono_spinctrl_spincollection_show(spinners);
 }
 
-//Inicia ele denovo, logo apaga tudo o que tinha antes.
+/*! \brief Limpa display
+ *  Reinicia o display. Portanto, apaga a tela atual.
+ */
 void clearDisplay (void){
 		gfx_mono_init();
 }
 
-//Limpa uma linha, para assim poder escrer algo novo.
+/*! \brief Limpa uma linha do display
+ *  \param Y uma variável do tipo gfx_coord_t
+ *  \param X uma variável do tipo gfx_coord_t
+ */
 void clearLine (gfx_coord_t Y, gfx_coord_t X){
 	gfx_mono_draw_string("                      ", X, Y, &sysfont);
 }
@@ -102,6 +119,10 @@ void concatString (const char* string, gfx_coord_t X, gfx_coord_t Y){
 	gfx_mono_draw_string(string, X, Y, &sysfont);
 }
 
+/*! \brief Imprime o estado em execução
+ * Imprime o subestado atual de acordo com o parâmetro de entrada.
+ * \param exec_state uma variável do estado em execução
+ */
 void printExecutionSate(EXECUTANDO_t exec_state){
 	//Controla os subestados. Vai de subestado em subestado.
 	switch(exec_state){
