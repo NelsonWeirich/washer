@@ -4,7 +4,7 @@
  * \brief SAM D21 Xplained Pro board ADC configurations Example.
  *
  * Copyright (c) 2015 Atmel Corporation. All rights reserved.
- *
+ * 
  * \asf_license_start
  *
  * \page License
