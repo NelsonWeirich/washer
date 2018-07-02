@@ -52,14 +52,14 @@
 
 /* Please define any one of the below ADC mode */
 #define ADC_MODE_DIFFERENTIAL	DISABLE
-#define ADC_MODE_HW_AVERAGING	DISABLE	
+#define ADC_MODE_HW_AVERAGING	DISABLE
 #define ADC_MODE_OVERSAMPLING	DISABLE
 #define ADC_MODE_WINDOW			DISABLE
 #define ADC_MODE_CALIBRATION	DISABLE
 #define ADC_MODE_TEMP_SENSOR	ENABLE
 
 #if (ADC_MODE_DIFFERENTIAL + ADC_MODE_HW_AVERAGING + ADC_MODE_OVERSAMPLING \
-	+ ADC_MODE_WINDOW + ADC_MODE_CALIBRATION + ADC_MODE_TEMP_SENSOR) > 1 
+	+ ADC_MODE_WINDOW + ADC_MODE_CALIBRATION + ADC_MODE_TEMP_SENSOR) > 1
 #error "Please enable only one feature at a time"
 #endif
 
@@ -71,7 +71,7 @@
 #define ADC_11BIT_FULL_SCALE_VALUE		2047
 #define ADC_16BIT_FULL_SCALE_VALUE		65535
 /* 12 bit ADC value for corresponding 0.75V with respect 1.65V reference */
-#define ADC_WINDOW_LOWER_THERSOLD_VALUE 0x0745 
+#define ADC_WINDOW_LOWER_THERSOLD_VALUE 0x0745
 
 
 /* Function Prototypes for the ADC mode operation */

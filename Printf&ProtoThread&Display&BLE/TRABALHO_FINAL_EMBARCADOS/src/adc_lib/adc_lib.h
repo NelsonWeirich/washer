@@ -18,6 +18,7 @@
 #include <asf.h>
 #include "adc_configure.h"
 #include "adc_temp.h"
+#include "conf_example.h"
 
 //CHANGED: Definido o pino do adc. EXT1[3] - PB00_AIN8 - ADC+
 #define SENSOR_NIVEL_PIN      PIN_PB00B_ADC_AIN8 /*!< Pino para conexão do potenciômetro. */
