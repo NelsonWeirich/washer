@@ -11,7 +11,9 @@ https://www.microchip.com/webdoc/samd21xplainedpro/index.html
 + http://asf.atmel.com/docs/3.35.1/samd21/html/index.html
 + PORT_IO  ==> http://asf.atmel.com/docs/3.35.1/samd21/html/asfdoc_sam0_port_basic_use_case.html
 + GFX_SPIN ==> http://asf.atmel.com/docs/latest/samd21/html/group__asfdoc__common2__gfx__mono__spinctrl.html#ga1fa0758397ad46035695689b03b00bbf
-+ ADC      ==> http://asf.atmel.com/docs/3.35.1/samd21/html/group__asfdoc__sam0__adc__group.html
++ ADC      ==>
+http://ww1.microchip.com/downloads/en/AppNotes/Atmel-42645-ADC-Configurations-with-Examples_ApplicationNote_AT11481.pdf
++ http://asf.atmel.com/docs/3.35.1/samd21/html/group__asfdoc__sam0__adc__group.html
 + DMA      ==> http://asf.atmel.com/docs/3.35.1/samd21/html/group__asfdoc__sam0__dma__group.html
 + EXT_INT  ==> http://asf.atmel.com/docs/3.35.1/samd21/html/group__asfdoc__sam0__extint__group.html
 + TIMER    ==> http://asf.atmel.com/docs/3.35.1/samd21/html/group__asfdoc__sam0__rtc__count__group.html
