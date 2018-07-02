@@ -243,14 +243,14 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 
 		//Testes, da pra tirar isso.
 		if(MODO == PESADO){
-			LED_On(l1);
+			LED_ON(l1);
 		}else{
-			LED_Off(l1);
+			LED_OFF(l1);
 		}
 		if(ESTADO == EXECUTANDO){
-			LED_On(l3);
+			LED_ON(l3);
 		}else{
-			LED_Off(l3);
+			LED_OFF(l3);
 		}
 
 		//Pegar se a tampa esta aberta.
@@ -414,33 +414,33 @@ PT_THREAD(pt_controlaComponentes(struct pt *pt))
 		//***MOTOR***
 		//Estado executando, logo verifica se é para o ligar o motor.
 		if(ESTADO == EXECUTANDO && ( EXECUTION == BATER || EXECUTION == CENTRIFUGAR || EXECUTION == SECANDO )){
-			LED_On(l_motor);
+			LED_ON(l_motor);
 		}else{
-			LED_Off(l_motor);
+			LED_OFF(l_motor);
 		}
 
 		//***VALVULA***
 		//Estado executando, logo verifica se é para colocar agua.
 		if(ESTADO == EXECUTANDO && ( EXECUTION == ENCHER || (EXECUTION == SECANDO && SECAR == VAPOR)) ){
-			LED_On(l_bomba);
+			LED_ON(l_bomba);
 		}else{
-			LED_Off(l_bomba);
+			LED_OFF(l_bomba);
 		}
 
 		//***BOMBA***
 		//Estado executando, logo verifica se é para o bomba retirar agua.
 		if(ESTADO == EXECUTANDO && ( EXECUTION == CENTRIFUGAR || EXECUTION == ESVAZIAR)){
-			LED_On(l_bomba);
+			LED_ON(l_bomba);
 		}else{
-			LED_Off(l_bomba);
+			LED_OFF(l_bomba);
 		}
 
 		//***SECAR***
 		//Estado executando, liga quando tiver que secar.
 		if(ESTADO == EXECUTANDO && ( EXECUTION == SECANDO) ){
-			LED_On(l_secador);
+			LED_ON(l_secador);
 		}else{
-			LED_Off(l_secador);
+			LED_OFF(l_secador);
 		}
 
 		//Rerorna para da protothread.

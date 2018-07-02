@@ -14,6 +14,9 @@
 #ifndef BTN_E_LED_H_
 #define BTN_E_LED_H_
 
+#define LED_ON(led_gpio)  LED_Off(led_gpio) /*!< Redefiniçãa da macro LED_On devido à lógica invertida */
+#define LED_OFF(led_gpio) LED_On(led_gpio) /*!< Redefinição da macro LED_Off devido à lógica invertida */
+
 //OLED1_BTNS_LEDS ==> OLED conectado na parte de baixo.
 #define BUTTON_1_PIN           PIN_PA28
 #define BUTTON_2_PIN           PIN_PA02

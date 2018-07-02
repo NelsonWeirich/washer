@@ -43,9 +43,9 @@ void inicializa_led(void){
 	config_port_pin.direction = PORT_PIN_DIR_OUTPUT;
 	//Seta os leds.
 	port_pin_set_config(LED_1_PIN, &config_port_pin);
-	LED_Off(LED_1_PIN);
+	LED_OFF(LED_1_PIN);
 	port_pin_set_config(LED_3_PIN, &config_port_pin);
-	LED_Off(LED_3_PIN);
+	LED_OFF(LED_3_PIN);
 }
 
 //****************************************************
@@ -75,13 +75,13 @@ void inicializa_external_led(void){
 	config_port_pin.direction = PORT_PIN_DIR_OUTPUT;
 	//Seta os leds.
 	port_pin_set_config(LED_MOTOR_PIN, &config_port_pin);
-	LED_Off(LED_MOTOR_PIN);
+	LED_OFF(LED_MOTOR_PIN);
 	port_pin_set_config(LED_SECADOR_PIN, &config_port_pin);
-	LED_Off(LED_SECADOR_PIN);
+	LED_OFF(LED_SECADOR_PIN);
 	port_pin_set_config(LED_VALVULA_PIN, &config_port_pin);
-	LED_Off(LED_VALVULA_PIN);
+	LED_OFF(LED_VALVULA_PIN);
 	port_pin_set_config(LED_BOMBA_PIN, &config_port_pin);
-	LED_Off(LED_BOMBA_PIN);
+	LED_OFF(LED_BOMBA_PIN);
 }
 
 //**************************************************
