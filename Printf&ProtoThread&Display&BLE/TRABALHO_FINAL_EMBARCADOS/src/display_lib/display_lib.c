@@ -29,22 +29,22 @@ PROGMEM_DECLARE(char, spinCHC_secar_vapor[]) = "Vapor";
 //Opcoes para o modo.
 PROGMEM_STRING_T spinner_choices_modo[] = {
 	spinCHC_modo_normal,
-	spinCHC_modo_rapido,
 	spinCHC_modo_pesado,
+	spinCHC_modo_rapido,
 };
 
 //Opcoes para a agua.
 PROGMEM_STRING_T spinner_choices_agua[] = {
 	spinCHC_agua_baixo,
-	spinCHC_agua_medio,
 	spinCHC_agua_alto,
+	spinCHC_agua_medio,
 };
 
 //Op��es para secar.
 PROGMEM_STRING_T spinner_choices_secar[] = {
 	spinCHC_secar_morno,
-	spinCHC_secar_quente,
 	spinCHC_secar_vapor,
+	spinCHC_secar_quente,
 };
 
 //Spinner e collections.
