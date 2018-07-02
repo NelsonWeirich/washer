@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['adc_5fcomplete_5fcallback',['adc_complete_callback',['../adc__lib_8c.html#ad6490b3c0cff2c92e82f2a81086285fb',1,'adc_lib.c']]],
   ['adc_5fcorrection_5fstart',['adc_correction_start',['../adc__configure_8c.html#ad2442ee2e19e0bceaaa93fc8ffc11c20',1,'adc_correction_start(void):&#160;adc_configure.c'],['../adc__configure_8h.html#ad2442ee2e19e0bceaaa93fc8ffc11c20',1,'adc_correction_start(void):&#160;adc_configure.c']]],
   ['adc_5fcorrection_5fstop',['adc_correction_stop',['../adc__configure_8c.html#ae8ef04c029fac34d05689dcb1fe38028',1,'adc_correction_stop(void):&#160;adc_configure.c'],['../adc__configure_8h.html#ae8ef04c029fac34d05689dcb1fe38028',1,'adc_correction_stop(void):&#160;adc_configure.c']]],
   ['adc_5fget_5fconfig_5fdefaults',['adc_get_config_defaults',['../group__asfdoc__sam0__adc__group.html#ga5a5650a331819833c7a27309c131c55d',1,'adc_get_config_defaults(struct adc_config *const config):&#160;adc.c'],['../group__asfdoc__sam0__adc__group.html#ga5a5650a331819833c7a27309c131c55d',1,'adc_get_config_defaults(struct adc_config *const config):&#160;adc.c']]],

@@ -8,7 +8,7 @@ var indexSectionsWithContent =
   5: "adefgimnrsuw",
   6: "_acdefgimnpsu",
   7: "abcdefghimnoprstuw",
-  8: "_abcdglmprs",
+  8: "_bcdglmprs",
   9: "2abcdefghilmnprstuvw",
   10: "acdemqs"
 };

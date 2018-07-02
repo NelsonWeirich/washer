@@ -66,7 +66,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -78,20 +77,8 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="adc__lib_8h_source.html">adc_lib.h</a>&quot;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a471c086a7d3797eb27c08f3359ff35aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adc__lib_8c.html#a471c086a7d3797eb27c08f3359ff35aa">ADC_SAMPLES</a>&#160;&#160;&#160;128</td></tr>
-<tr class="separator:a471c086a7d3797eb27c08f3359ff35aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad6490b3c0cff2c92e82f2a81086285fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adc__lib_8c.html#ad6490b3c0cff2c92e82f2a81086285fb">adc_complete_callback</a> (struct <a class="el" href="structadc__module.html">adc_module</a> *const module)</td></tr>
-<tr class="separator:ad6490b3c0cff2c92e82f2a81086285fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a852ca67da5b16b80771083dd39a77a9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adc__lib_8c.html#a852ca67da5b16b80771083dd39a77a9c">configure_adc</a> (void)</td></tr>
-<tr class="memdesc:a852ca67da5b16b80771083dd39a77a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">ADC Configuration normal mode. This function configures ADC as normal mode with below Settings.  <a href="#a852ca67da5b16b80771083dd39a77a9c">More...</a><br /></td></tr>
-<tr class="separator:a852ca67da5b16b80771083dd39a77a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11cd0da613dabcd5f6b042519e557e9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adc__lib_8c.html#a11cd0da613dabcd5f6b042519e557e9b">configure_adc_callbacks</a> (void)</td></tr>
-<tr class="separator:a11cd0da613dabcd5f6b042519e557e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31c6a94948292f386ac914f0a9eda02b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adc__lib_8c.html#a31c6a94948292f386ac914f0a9eda02b">initSensor_NivelAgua</a> (void)</td></tr>
 <tr class="separator:a31c6a94948292f386ac914f0a9eda02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e6cf18468cb8923c74cbcb6805a78ec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adc__lib_8c.html#a6e6cf18468cb8923c74cbcb6805a78ec">valorAtualSensor</a> (int Sensor)</td></tr>
@@ -102,12 +89,6 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:ae86b10132c43adbe94122fa683ae21f5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structadc__module.html">adc_module</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adc__lib_8c.html#ae86b10132c43adbe94122fa683ae21f5">adc_instance</a></td></tr>
 <tr class="separator:ae86b10132c43adbe94122fa683ae21f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb62797f2287fd75403bb0684f059e11"><td class="memItemLeft" align="right" valign="top"><a id="abb62797f2287fd75403bb0684f059e11"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>adc_result_buffer</b> [<a class="el" href="adc__lib_8c.html#a471c086a7d3797eb27c08f3359ff35aa">ADC_SAMPLES</a>]</td></tr>
-<tr class="separator:abb62797f2287fd75403bb0684f059e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5a1d1d4cfbd61f34ff977627d1d6559"><td class="memItemLeft" align="right" valign="top"><a id="ad5a1d1d4cfbd61f34ff977627d1d6559"></a>
-volatile bool&#160;</td><td class="memItemRight" valign="bottom"><b>adc_read_done</b> = false</td></tr>
-<tr class="separator:ad5a1d1d4cfbd61f34ff977627d1d6559"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Biblioteca do ADC. </p>
@@ -117,82 +98,7 @@ volatile bool&#160;</td><td class="memItemRight" valign="bottom"><b>adc_read_don
 Nelson Roberto Weirich Junior</dd></dl>
 <dl class="section date"><dt>Date</dt><dd>29/06/2018 16:24:32 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>GNU Public License </dd></dl>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a471c086a7d3797eb27c08f3359ff35aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a471c086a7d3797eb27c08f3359ff35aa">&#9670;&nbsp;</a></span>ADC_SAMPLES</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ADC_SAMPLES&#160;&#160;&#160;128</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Store ADC samples in buffer asynchronously </p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ad6490b3c0cff2c92e82f2a81086285fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6490b3c0cff2c92e82f2a81086285fb">&#9670;&nbsp;</a></span>adc_complete_callback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void adc_complete_callback </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structadc__module.html">adc_module</a> *const&#160;</td>
-          <td class="paramname"><em>module</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Function callback of the ADC </p>
-
-</div>
-</div>
-<a id="a852ca67da5b16b80771083dd39a77a9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a852ca67da5b16b80771083dd39a77a9c">&#9670;&nbsp;</a></span>configure_adc()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void configure_adc </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>ADC Configuration normal mode. This function configures ADC as normal mode with below Settings. </p>
-<p>GLCK for ADC -&gt; GCLK_GENERATOR_1 (8MHz) CLK_ADC -&gt; 512 KHz REFERENCE -&gt; 1/2 VDDANA (1.65V) POSITIVE INPUT -&gt; PA02 NEGATIVE INPUT -&gt; GND </p>
-
-</div>
-</div>
-<a id="a11cd0da613dabcd5f6b042519e557e9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11cd0da613dabcd5f6b042519e557e9b">&#9670;&nbsp;</a></span>configure_adc_callbacks()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void configure_adc_callbacks </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Register and enable the ADC Read Buffer Complete callback handler </p>
-
-</div>
-</div>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a31c6a94948292f386ac914f0a9eda02b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31c6a94948292f386ac914f0a9eda02b">&#9670;&nbsp;</a></span>initSensor_NivelAgua()</h2>
 
