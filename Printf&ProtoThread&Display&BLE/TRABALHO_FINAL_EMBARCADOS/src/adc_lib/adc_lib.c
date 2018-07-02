@@ -41,12 +41,8 @@ void initSensor_NivelAgua(void) {
  */
 int  valorAtualSensor(int Sensor){
 	uint16_t valor_adc;
-	float result;
-
-	valor_adc = adc_start_read_result();
-	result = ((float) valor_adc * (float)ADC_REFERENCE_INTVCC1_VALUE) / (float)ADC_11BIT_FULL_SCALE_VALUE;
-
-	Start conversion
+  
+	// Start conversion
 	adc_start_conversion(&adc_instance);
 
   // Wait until the conversion is complete
