@@ -49,43 +49,48 @@ void initSensor_NivelAgua(void) {
  *  \return valor lido do sensor e convertido para um valor entre 0-2047
  */
 int  valorAtualSensor(int Sensor){
-	// Start an asynchronous ADC conversion
-	// adc_read_buffer_job(&adc_instance, adc_result_buffer, ADC_SAMPLES);
-  //
-  // // Wait until the asynchronous conversion is complete
-	// while (adc_read_done == false) {}
-  //
-	// if(zero <= valor_adc < 128 ){
-	// 	return SENSOR_NIVEL_ZERO /*!< 0 */
-	// }else
-  //
-	// if(128 <= valor_adc < 700){
-	// 	return SENSOR_NIVEL_BAIXO /*!< 512 */
-	// }else
-  //
-	// if(700 <= valor_adc < 1128){
-	// 	return SENSOR_NIVEL_MEDIO /*!< 1023 */
-	// }else
-  //
-	// if(1128 <= valor_adc < 1700){
-	// 	return SENSOR_NIVEL_ALTO /*!< 1540 */
-	// }else
-  //
-	// if(1700 <= valor_adc){
-	// 	return SENSOR_NIVEL_FULL /*!< 2047 */
-	// }
-  // Le do adc.
-  static int count = 0, count2 = 0;
+	uint16_t valor_adc;
 
-	if(count2 > 250){
-		if(count > 600){
-			count = 0;
-		}else{
-			count++;
-		}
-		count2 = 0;
-	}else{
-		count2++;
+	//Start conversion
+	adc_start_conversion(&adc_instance);
+
+  // Wait until the conversion is complete
+	do {
+
+	}	while (adc_read(&adc_instance, &valor_adc) == STATUS_BUSY);
+
+  int count = 0, count2 = 0;
+
+  if(count2 > 250){
+  	if(count > 600){
+  		count = 0;
+  	}else{
+  		count++;
+  	}
+  	count2 = 0;
+  }else{
+  	count2++;
+  }
+  return count;
+////////////////////////////////////////
+	if(0 <= valor_adc < 128 ){
+		return SENSOR_NIVEL_ZERO; /*!< 0 */
+	}else
+
+	if(128 <= valor_adc < 700){
+		return SENSOR_NIVEL_BAIXO; /*!< 512 */
+	}else
+
+	if(700 <= valor_adc < 1128){
+		return SENSOR_NIVEL_MEDIO; /*!< 1023 */
+	}else
+
+	if(1128 <= valor_adc < 1700){
+		return SENSOR_NIVEL_ALTO; /*!< 1540 */
+	}else
+
+	if(1700 <= valor_adc){
+		return SENSOR_NIVEL_FULL; /*!< 2047 */
 	}
-	return count;
+
 }
