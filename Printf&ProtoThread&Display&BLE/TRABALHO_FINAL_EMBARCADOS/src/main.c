@@ -242,15 +242,15 @@ PT_THREAD(pt_pegaDados(struct pt *pt))
 		}
 
 		//Testes, da pra tirar isso.
-		if(MODO == PESADO){
-			LED_ON(l1);
-		}else{
-			LED_OFF(l1);
-		}
 		if(ESTADO == EXECUTANDO){
-			LED_ON(l3);
+			LED_On(l1);
 		}else{
-			LED_OFF(l3);
+			LED_Off(l1);
+		}
+		if(ESTADO == FINALIZADO){
+			LED_On(l3);
+		}else{
+			LED_Off(l3);
 		}
 
 		//Pegar se a tampa esta aberta.
