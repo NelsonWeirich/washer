@@ -18,21 +18,7 @@
 struct adc_module adc_instance;
 
 void initSensor_NivelAgua(void) {
-
-	// Configuration struct
-  struct adc_config config_adc;
-	// Initialize the ADC configuration struct
-  adc_get_config_defaults(&config_adc);
-
-	config_adc.clock_source = GCLK_GENERATOR_1;
-	config_adc.reference = ADC_REFERENCE_INTVCC1;
-	config_adc.clock_prescaler = ADC_CTRLB_PRESCALER_DIV16;
-	config_adc.positive_input = ADC_POSITIVE_INPUT_PIN8;
-	config_adc.negative_input = ADC_NEGATIVE_INPUT_GND;
-
-  adc_init(&adc_instance, ADC, &config_adc);
-  // Enable the ADC module
-  adc_enable(&adc_instance);
+  //..
 }
 
 /*! \brief Retorna o valor convertido do ADC
@@ -40,29 +26,8 @@ void initSensor_NivelAgua(void) {
  *  \return valor lido do sensor e convertido para um valor entre 0-2047
  */
 int  valorAtualSensor(int Sensor){
-	uint16_t valor_adc;
-  
-	// Start conversion
-	adc_start_conversion(&adc_instance);
+  static int count = 0, count2 = 0;
 
-  // Wait until the conversion is complete
-	do {
-	}	while (adc_read(&adc_instance, &valor_adc) == STATUS_BUSY);
-  printf("\r\nDiferrential %d", valor_adc);
-//
-//   int count = 0, count2 = 0;
-//
-//   if(count2 > 250){
-//   	if(count > 600){
-//   		count = 0;
-//   	}else{
-//   		count++;
-//   	}
-//   	count2 = 0;
-//   }else{
-//   	count2++;
-//   }
-//   return count;
 // ////////////////////////////////////////
 // 	if(0 <= valor_adc < 128 ){
 // 		return SENSOR_NIVEL_ZERO; /*!< 0 */
@@ -84,4 +49,15 @@ int  valorAtualSensor(int Sensor){
 // 		return SENSOR_NIVEL_FULL; /*!< 2047 */
 // 	}
 
+  if(count2 > 250){
+    if(count > 600){
+      count = 0;
+    }else{
+      count++;
+    }
+    count2 = 0;
+  }else{
+    count2++;
+  }
+  return count;
 }
